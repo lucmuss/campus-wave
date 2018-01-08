@@ -1,0 +1,21 @@
+<table>
+    <thead>
+    <tr>
+        <th> Datum</th>
+        <th> Suchwörter</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for date, term_list in history_list %}
+    <tr>
+        <td><samp class="string_date">{{ date }}</samp></td>
+        <td><big>
+            {% for term in term_list %}
+            <a href="{{ url_for('search_page', searchTerm=term) }}">{{ term }}</a>,
+            {% endfor %}
+        </big>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>

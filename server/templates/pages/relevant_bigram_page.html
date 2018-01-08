@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}
+Relevante Wort Paare
+{% endblock %}
+{% block content %}
+<section class="ym-gbox">
+    <br>
+    <div class="ym-grid">
+        <div class="ym-gbox">
+            <h4>Wort Paare in der Datenbank:</h4>
+            {% include 'tables/relevant_bigram_table.html' %}
+        </div>
+    </div>
+</section>
+{% endblock content %}

@@ -1,0 +1,15 @@
+<table>
+    <thead>
+    <tr>
+        <th> Anzahl</th>
+        <th> Suchwort</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for term, term_counter in frequent_list %}
+    <tr>
+        <td> {{ term_counter }}</td>
+        <td><big><a href="{{ url_for('search_page', searchTerm=term) }}">{{ term }}</a></big></td>
+    </tr>
+    {% endfor %}
+</table>

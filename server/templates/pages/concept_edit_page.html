@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block title %}
+Datenbank
+{% endblock %}
+{% block content %}
+<section class="ym-gbox">
+
+
+    <div id="database_log">
+        <form class="ym-form ym-columnar" action="{{ url_for('edit_page') }}" method="post">
+
+            <div class="ym-fbox">
+
+                <div class="ym-gbox">
+                    <button class="ym-button ym-small ym-save ym-success" id="boldButtonInput" type="submit">Speichern
+                    </button>
+
+                    <a href="{{ url_for('edit_page', removeFile=file_name) }}"
+                       class="ym-button ym-success ym-delete ym-small boldButtonInput">Löschen</a>
+
+                    <a href="{{ url_for('admin_page') }}"
+                       class="ym-button ym-success ym-close ym-small boldButtonInput">Übersicht</a>
+                </div>
+
+            </div>
+
+            <div class="ym-fbox">
+                <div class="ym-grid">
+                    <input style="display:none" type="text" name="storeFile"
+                           value="{{ file_name }}"/>
+                    <code><big>{{ file_name }}</big></code>
+                </div>
+
+            </div>
+
+
+            <div class="ym-fbox">
+                <label for="database_text_log"><b>Inhalt</b></label>
+                <textarea id="database_text_log" name="fileContent" style="font-size: 1.3em" rows="30">{{ file_content }}</textarea>
+            </div>
+
+            <div class="ym-fbox">
+
+
+                <table class="">
+                    <thead>
+                    <tr>
+                        <th>Konzepte</th>
+                        <th>Schlüsselwörter</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for concept, term_set in file_info %}
+
+                    <tr>
+
+                        <td>
+                            <a href="{{  url_for('search_page', searchConcept=concept) }}"
+                               class="ym-button ym-warning ym-star ym-small boldButtonInput conceptButton">{{ concept
+                                }}</a>
+                        </td>
+                        <td>
+                            {% for term in term_set %}
+
+                            <big><a href="{{ url_for('search_page', searchTerm=term) }}">{{ term }}</a></big>,
+
+                            {% endfor %}
+                        </td>
+
+                    </tr>
+
+
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+
+            </div>
+
+        </form>
+    </div>
+
+
+</section>
+{% endblock content %}

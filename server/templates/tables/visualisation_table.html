@@ -1,0 +1,25 @@
+{% if visualize_list %}
+<table>
+    <thead>
+    <tr>
+        <th>Rang</th>
+        <th>Score</th>
+        <th>Visualisierung</th>
+        <th>Suche</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for index, counter, term, formatted_term, color in visualize_list %}
+    <tr>
+        <td>{{ index }}</td>
+        <td>{{ counter }}</td>
+        <td><a href="{{ url_for('visualize_page', searchTerm=term) }}"
+               class="ym-button ym-spark ym-small ym-success boldButtonInput">{{ formatted_term }}</a>
+        </td>
+        <td><big><a href="{{ url_for('search_page', searchTerm=term) }}">{{ formatted_term }}</a></big>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endif %}

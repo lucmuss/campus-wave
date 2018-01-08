@@ -1,0 +1,12 @@
+
+lit a q:Vocabulary .
+
+lit:Religion a q:BSort .
+
+lit:Religion q:hasAttribute (lit:Christentum, lit:Islam, lit:Judentum ) .
+
+lit:Christentum q:hasObject ("papst", "jesus", "ehrfurcht", "christus", "gottes", "christen", "testament", "kirche", "gott", "heilige", "gottes", "christlichen") .
+
+lit:Islam q:hasObject ("islam", "islamisch", "islamische") .
+
+lit:Judentum q:hasObject ("jude", "jüdische", "juden" ) .

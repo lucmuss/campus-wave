@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}
+Such Historie
+{% endblock %}
+{% block content %}
+<section class="ym-gbox">
+    <br>
+    <div class="ym-grid">
+        <div class="ym-g80 ym-gl">
+            <div class="ym-gbox">
+                <h4>Vergangene Suchwörter:</h4>
+                {% include 'tables/search_history_table.html' %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

@@ -1,0 +1,14 @@
+
+lit a q:Vocabulary .
+
+lit:Sport a q:BSort .
+
+lit:Sport q:hasAttribute (lit:Fussball, lit:WeltMeisterschaft, lit:EuropaMeisterschaft, lit:Bundesliga) .
+
+lit:Fussball q:hasObject ("unentschieden", "tor", "tore", "fussball", "spieler", "spiel", "spiele", "fans", "fan", "fc", "mannschaft", "sieg", "gegner", "teams", "team") .
+
+lit:WeltMeisterschaft q:hasObject ("weltmeisterschaft", "wm", "finale") .
+
+lit:EuropaMeisterschaft q:hasObject ("europameisterschaft", "em", "finale") .
+
+lit:Bundesliga q:hasObject ("fc", "liga", "tabelle") .

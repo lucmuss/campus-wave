@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+{% block title %}
+Podcast Suche
+{% endblock %}
+{% block content %}
+<section class="ym-gbox">
+    <form class="ym-form ym-columnar" action="{{ url_for('search_page') }}">
+        <div class="ym-fbox-footer">
+            <label for="mainTextInput"><b>Schlüsselwörter:</b>
+            </label>
+            <div class="ym-fbox-wrap ym-grid">
+                <div class="ym-g50 ym-gl">
+                    <div class="ym-gbox">
+                        <input type="text" name="searchTerm" title="Suchfeld der Schlüsselwörter"
+                               value="{{ request.args.get('searchTerm', '') }}"
+                               id="mainTextInput"/>
+                    </div>
+                </div>
+                <div class="ym-g50 ym-gl">
+                    <div class="ym-gbox">
+                        <button class="ym-button ym-success boldButtonInput" title="Suche Ausführen">Podcast
+                            Suche
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ym-fbox">
+            <label for="dateFrom">Erweiterte Optionen:</label>
+            <div class="ym-fbox-wrap ym-grid">
+                <div class="ym-g90 ym-gl">
+                    <div class="ym-gbox">
+                        <button class="ym-button ym-add displayHiddenOptionsButton boldButtonInput"
+                                title="Erweitere Suchfunktionen ausklappen" type="button">
+                            Suchoptionen
+                        </button>
+                        <button class="ym-button resetButton boldButtonInput" title="Alle Eingabefelder Löschen"
+                                type="reset">Reset
+                        </button>
+                        <button class="ym-button booleanInsertButton boldButtonInput"
+                                title="Logischen UND Operator ins Suchfeld übernehmen" type="button">AND
+                        </button>
+                        <button class="ym-button booleanInsertButton boldButtonInput"
+                                title="Logischen ODER Operator ins Suchfeld übernehmen" type="button">OR
+                        </button>
+                        <button class="ym-button booleanInsertButton boldButtonInput"
+                                title="Logischen NICHT Operator ins Suchfeld übernehmen" type="button">NOT
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hiddenOptionsContainer">
+            <h6 class="ym-fbox-heading">Erstellungsdatum Suche:</h6>
+            <div class="ym-fbox">
+                <label for="dateFrom">von:</label>
+                <div class="ym-fbox-wrap ym-grid">
+                    <div class="ym-g33 ym-gl">
+                        <div class="ym-gbox">
+                            <input value="{{ request.args.get('dateFrom', '') }}"
+                                   title="Erstellungsdatum ab einem bestimmten Zeitpunkt" name="dateFrom"
+                                   class="datePickerFrom"
+                                   type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ym-fbox">
+                <label for="dateTo">bis:</label>
+                <div class="ym-fbox-wrap ym-grid">
+                    <div class="ym-g33 ym-gl">
+                        <div class="ym-gbox">
+                            <input value="{{ request.args.get('dateTo', '') }}"
+                                   title="Erstellungsdatum bis zu einem bestimmten Zeitpunkt" name="dateTo"
+                                   class="datePickerTo"
+                                   type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h6 class="ym-fbox-heading">Podcast Längen Suche:</h6>
+            <div class="ym-fbox">
+                <label for="durationFrom">Stunden : Minuten : Sekunden:</label>
+                <div class="ym-fbox-wrap ym-grid">
+                    <div class="ym-g50 ym-gl">
+                        von:<b class="secondsFromHelp"></b>
+                    </div>
+                    <div class="ym-g50 ym-gl">
+                        bis: <b class="secondsToHelp"></b>
+                    </div>
+                </div>
+            </div>
+            <div class="ym-fbox">
+                <div class="ym-fbox-wrap ym-grid">
+                    <div class="ym-g80 ym-gl">
+                        <div title="Auswahl der minimalen und maximalen Länge der Audio Dateien"
+                             class="secondSlider"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="ym-fbox hiddenSecondForm">
+                <div class="ym-fbox-wrap ym-grid">
+                    <div class="ym-g33 ym-gl">
+                        <div class="ym-gbox">
+                            <input type="text" value="{{ request.args.get('durationFrom', '') }}" name="durationFrom"
+                                   class="secondsFrom"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ym-fbox hiddenSecondForm">
+                <div class="ym-fbox-wrap ym-grid">
+                    <div class="ym-g33 ym-gl">
+                        <div class="ym-gbox">
+                            <input type="text" value="{{ request.args.get('durationTo', '') }}" name="durationTo"
+                                   class="secondsTo"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h6 class="ym-fbox-heading">Verzeichnis Pfad Suche:</h6>
+            <div class="ym-fbox">
+                <label for="searchPath">Pfad: - <b class="pathHelp">Archiv 2012</b>
+                </label>
+                <div class="ym-fbox-wrap ym-grid">
+                    <div class="ym-g33 ym-gl">
+                        <div class="ym-gbox">
+                            <input value="{{ request.args.get('searchPath', '') }}"
+                                   title="Suchfeld für bestimmte Datei Pfade" name="searchPath" type="text">
+                        </div>
+                    </div>
+                    <div class="ym-g66 ym-gl">
+                        <div class="ym-gbox">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h6 class="ym-fbox-heading">Maximale Anzahl der Suchergebnisse:</h6>
+            <div class="ym-fbox">
+                <label for="resultNumber">Anzahl:</label>
+                <div class="ym-fbox-wrap ym-grid">
+                    <div class="ym-g33 ym-gl">
+                        <div class="ym-gbox">
+                            <select name="resultNumber" title="Auswahl der maximalen Anzahl an Dateien im Suchergebnis"
+                                    size="1">
+                                <option value="{{ request.args.get('resultNumber', '25') }}" selected>{{
+                                    request.args.get('resultNumber', '25') }}
+                                </option>
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                                <option value="200">200</option>
+                                <option value="300">300</option>
+                                <option value="400">400</option>
+                                <option value="500">500</option>
+                                <option value="1000">1000</option>
+                            </select>
+                            <input style="display:none" type="text" value="1"
+                                   name="pageNumber"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+{% block result %}
+{% endblock result %}
+{% endblock content %}

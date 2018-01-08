@@ -1,0 +1,37 @@
+{% for cluster_list in relevant_list %}
+<table class="special_narrow">
+    {% set first_term, term_frequency, term_weight, term_score, term_cluster, term_concepts = cluster_list[0] %}
+    {% set second_term, term_frequency, term_weight, term_score, term_cluster, term_concepts = cluster_list[1] %}
+    {% set third_term, term_frequency, term_weight, term_score, term_cluster, term_concepts = cluster_list[2] %}
+    {% set fourth_term, term_frequency, term_weight, term_score, term_cluster, term_concepts = cluster_list[3] %}
+    <thead>
+    <tr>
+        <th colspan="4"><big> {{ first_term }}, {{ second_term }}, {{ third_term }}, {{ fourth_term }}</big></th>
+    </tr>
+    <tr>
+        <th width="10%"> Anzahl</th>
+        <th width="20%"> Wörter</th>
+        <th width="20%">Visualisierung</th>
+        <th>Konzepte</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for term, term_frequency, term_weight, term_score, term_cluster, term_concepts in cluster_list %}
+    <tr>
+        <td>{{ term_frequency }}</td>
+        <td><big><a href="{{ url_for('search_page', searchTerm=term) }}">{{ term }}</a></big></td>
+        <td>
+            <a href="{{ url_for('visualize_page', searchTerm=term) }}"
+               class="ym-button ym-success ym-spark ym-small boldButtonInput visualButton">{{ term }}</a>
+        </td>
+        <td>
+            {% for concept in term_concepts %}
+            <a href="{{  url_for('search_page', searchConcept=concept) }}"
+               class="ym-button ym-warning ym-star ym-small boldButtonInput conceptButton">{{ concept }}</a>
+            {% endfor %}
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endfor %}

@@ -1,0 +1,87 @@
+lit a q:Vocabulary .
+
+lit:Laender a q:BSort .
+
+lit:Laender q:hasAttribute (lit:Syrien, lit:Rumaenien, lit:Irland, lit:Indien, lit:Ukraine, lit:Serbien, lit:Libyen, lit:Bosnien, lit:Schweden, lit:Spanien, lit:Pakistan, lit:Marokko, lit:Iran, lit:Israel, lit:Kanada, lit:Japan, lit:Tuerkei, lit:Deutschland, lit:Portugal,  lit:Schweiz, lit:Zypern, lit:Griechenland, lit:Australien, lit:China, lit:Suedamerika,  lit:Bayern, lit:Brasilien, lit:Tschechien, lit:Norwegen, lit:Bulgarien, lit:Slowakei, lit:Russland, lit:Daenemark, lit:Frankreich, lit:Polen, lit:England, lit:Finnland, lit:Amerika, lit:Italien,  lit:Europa, lit:Afrika) .
+
+lit:Syrien q:hasObject ("syrien", "syrer", "syrisch") .
+
+lit:Rumaenien q:hasObject ("rumänien", "rumäne", "rumänisch") .
+
+lit:Irland q:hasObject ("iren", "irisch", "iren") .
+
+lit:Indien q:hasObject ("inder", "indien") .
+
+lit:Ukraine q:hasObject ("ukraine", "ukrainisch") .
+
+lit:Serbien q:hasObject ("serbien", "serbisch", "serbien", "serben") .
+
+lit:Libyen q:hasObject ("libyen", "libyer") .
+
+lit:Bosnien q:hasObject ("bosnien") .
+
+lit:Schweden q:hasObject ("schweden", "schwedische") .
+
+lit:Spanien q:hasObject ("spanien", "spanische") .
+
+lit:Pakistan q:hasObject ("pakistan", "pakistaner") .
+
+lit:Marokko q:hasObject ("marokko", "marokkaner") .
+
+lit:Iran q:hasObject ("iran", "iraner") .
+
+lit:Israel q:hasObject ("juden", "jude", "israel") .
+
+lit:Kanada q:hasObject ("kanada", "kannadier") .
+
+lit:Japan q:hasObject ("japan", "japaner") .
+
+lit:Tuerkei q:hasObject ("türkei", "türken", "türkische") .
+
+lit:Portugal q:hasObject ("portugal", "portugiesen") .
+
+lit:Zypern q:hasObject ("zypern") .
+
+lit:Schweiz q:hasObject ("schweiz", "schweizer") .
+
+lit:China q:hasObject ("china", "chinesen") .
+
+lit:Griechenland q:hasObject ("griechenland", "griechenlands") .
+
+lit:Australien q:hasObject ("australien", "australiens") .
+
+lit:Deutschland q:hasObject ("de", "deutschland", "saarland", "hessen", "bayern", "ddr") .
+
+lit:Bayern q:hasObject ("bayern", "niederbayern", "freistaat", "oberbayern", "münchner", "bayer", "bayerischen", "bayerische") .
+
+lit:Amerika q:hasObject ("amerika", "us", "amerikaner", "usa") .
+
+lit:Italien q:hasObject ("italien", "italierner") .
+
+lit:Europa q:hasObject ("europäischer", "europa", "eu", "euro", "europas", "eurozone", "osteuropa", "balkan", "brüssel", "osten") .
+
+lit:Afrika q:hasObject ("afrika", "südafrika", "somalia", "westsahara", "sahara") .
+
+lit:Suedamerika q:hasObject ("südamerika", "lateinamerika") .
+
+lit:Brasilien q:hasObject ("brasilien", "brasilianer") .
+
+lit:Polen q:hasObject ("polen") .
+
+lit:Finnland q:hasObject ("finnland", "finnen") .
+
+lit:Frankreich q:hasObject ("frankreich", "franzosen", "französische") .
+
+lit:Daenemark q:hasObject ("dänemark") .
+
+lit:Tschechien q:hasObject ("tschechien", "techechen", "tschechische") .
+
+lit:Norwegen q:hasObject ("norwegen", "norweger", "norwegische") .
+
+lit:Russland q:hasObject ("russland", "russen", "russische") .
+
+lit:Bulgarien q:hasObject ("bulgarien", "bulgaren", "bulgarische") .
+
+lit:Slowakei q:hasObject ("slowakei", "slowaken", "slowakische") .
+
+lit:England q:hasObject ("england", "grossbritannien", "briten", "englische", "britische", "engländer") .

@@ -1,0 +1,24 @@
+
+
+
+lit a q:Vocabulary .
+
+lit:Universitaet a q:BSort .
+
+lit:Universitaet q:hasAttribute (lit:Studenten, lit:Vorlesungen, lit:Professoren, lit:Leitung, lit:Uni, lit:Studienfach, lit:Seminare, lit:Pruefungen) .
+
+lit:Studenten q:hasObject ("studenten", "student", "semester", "studium", "studiengebühren", "studierenden", "studien") .
+
+lit:Vorlesungen q:hasObject ("thema", "themen", "veranstaltung", "vorlesungen", "vorlesung", "vortrag",  "kurse") .
+
+lit:Professoren q:hasObject ("professor", "doktor", "professoren", "vortrag", "studie", "studien", "schwerpunkt", "wissenschaft", "forscher") .
+
+lit:Leitung q:hasObject ("präsident", "leitung", "nachfolger", "verwaltung") .
+
+lit:Uni q:hasObject ("uni", "universität", "universitäten", "hochschulen", "hochschule") .
+
+lit:Studienfach q:hasObject ("informatik", "philosophie", "kommunikation") .
+
+lit:Seminare q:hasObject ("seminar", "seminare") .
+
+lit:Pruefungen q:hasObject ("prüfungen",  "prüfung") .

@@ -1,0 +1,35 @@
+<table>
+    <thead>
+    <tr>
+        <th> Anzahl</th>
+        <th> WortPaare</th>
+        <th width="25%"> Visualisierung</th>
+        <th> Konzepte</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for bigram_tuple, bigram_frequency, bigram_concepts in bigram_list %}
+    <tr>
+        <td>{{ bigram_frequency }}</td>
+        <td><big>
+            {% set left_term, right_term = bigram_tuple %}
+            {% set formatted_bigram = left_term + " " + right_term %}
+            <a href="{{ url_for('search_page', searchTerm=formatted_bigram) }}">{{ left_term }} {{ right_term }}</a>
+        </big>
+        </td>
+        <td>
+            {% for term in bigram_tuple %}
+            <a href="{{ url_for('visualize_page', searchTerm=term) }}"
+               class="ym-button ym-success ym-spark ym-small boldButtonInput visualButton">{{ term }}</a>
+            {% endfor %}
+        </td>
+        <td>
+            {% for concept in bigram_concepts %}
+            <a href="{{  url_for('search_page', searchConcept=concept) }}"
+               class="ym-button ym-warning ym-star ym-small boldButtonInput conceptButton">{{ concept }}</a>
+            {% endfor %}
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>

@@ -1,0 +1,11 @@
+lit a q:Vocabulary .
+
+lit:Musik a q:BSort .
+
+lit:Musik q:hasAttribute (lit:MusikWort, lit:Veranstaltung, lit:MusikGenre) .
+
+lit:MusikWort q:hasObject ("musik", "musiker", "album", "beethoven") .
+
+lit:Veranstaltung q:hasObject ("festival", "programm", "musical") .
+
+lit:MusikGenre q:hasObject ("pop", "hiphop", "rap", "jazz", "rock", "funk", "classic", "union") .

@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block title %}
+Hilfe
+{% endblock %}
+{% block content %}
+<section class="ym-gbox">
+    <div class="ym-grid">
+        <div class="ym-g80 ym-gl">
+            <h2>Hilfe zur Suchfunktion:</h2>
+            <br>
+            <video width="100%" height="100%" preload="None" controls>
+                <source src="static/download/help_video.mp4" type="video/mp4"/>
+            </video>
+            <br>
+            <br>
+            <br>
+            <h4>Erklärung der einzelnen Suchfunktionen:</h4>
+            <table>
+                <thead>
+                <tr>
+                    <th> Suchanfragetyp</th>
+                    <th> Beispiele</th>
+                    <th> Erklärung</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><big>UND Suche</big>
+                    </td>
+                    <td><samp>Professor</samp> <b>AND</b> <samp>Passau</samp>
+                        <br>
+                        <samp>Person</samp> <b>AND</b> <samp>Sport</samp>
+                    </td>
+                    <td>Findet alle Podcasts, die das Suchwort <samp>Professor</samp>
+                        <ins>und</ins>
+                        <samp>Passau</samp> enthalten.
+                        <br>Alternativ kann auch &quot;
+                        <samp>Professor</samp> <samp>Passau</samp>&quot; eingegeben werden.
+                    </td>
+                </tr>
+                <tr>
+                    <td><big>ODER Suche</big>
+                    </td>
+                    <td><samp>Rausch</samp> <b>OR</b> <samp>Drogen</samp>
+                        <br>
+                        <samp>Sport</samp> <b>OR</b> <samp>Kultur</samp> <b>OR</b> <samp>Drogen</samp>
+                    </td>
+                    <td>Findet alle Podcasts, die das Suchwort <samp>Rausch</samp>
+                        <ins>oder</ins>
+                        <samp>Drogen</samp> enthalten.
+                </tr>
+                <tr>
+                    <td><big>NICHT Suche</big>
+                    </td>
+                    <td><samp>Sport</samp> <b>NOT</b> <samp>Tennis</samp>
+                        <br>
+                        <samp>Bayern</samp> <b>AND</b> (<samp>Passau</samp> <b>OR</b> <samp>Landshut</samp>)
+                    </td>
+                    <td>Findet alle Podcasts, die das Suchwort <samp>Sport</samp> und
+                        <ins>nicht</ins>
+                        das Suchwort <samp>Tennis</samp> enthalten.
+                        <br>Alternativ kann auch &quot;
+                        <samp>Sport</samp> AND (NOT <samp>Tennis</samp>)&quot; eingegeben werden.
+                    </td>
+                </tr>
+                <tr>
+                    <td><big>Podcast Länge</big>
+                    </td>
+                    <td>
+                        <form class="ym-form">
+                            <div class="ym-fbox">
+                                <div class="secondSlider"></div>
+                            </div>
+                            <div class="ym-fbox">
+                                <label for="secondsFrom">Sekunden von:</label>
+                                <input type="text" value="0" name="secondsFrom" class="secondsFrom" size="8"/>
+                            </div>
+                            <div class="ym-fbox">
+                                <label for="secondsTo">Sekunden bis:</label>
+                                <input type="text" value="600" name="secondsTo" class="secondsTo" size="8"/>
+                            </div>
+                        </form>
+                    </td>
+                    <td>Findet alle Podcasts, die kleiner als <samp>600</samp> Sekunden und größer als <samp>0</samp>
+                        Sekunden
+                        lang sind.
+                    </td>
+                </tr>
+                <tr>
+                    <td><big>Erstellungsdatum</big>
+                    </td>
+                    <td>
+                        <form class="ym-form">
+                            <div class="ym-fbox">
+                                <label for="datePickerFrom">Erstellungsdatum von:</label>
+                                <input type="text" value="15.04.2010" name="datePickerFrom" class="datePickerFrom"
+                                       size="8"/>
+                            </div>
+                            <div class="ym-fbox">
+                                <label for="datePickerTo">Erstellungsdatum bis:</label>
+                                <input type="text" value="28.08.2012" name="datePickerTo" class="datePickerTo"
+                                       size="8"/>
+                            </div>
+                        </form>
+                    </td>
+                    <td>Findet alle Podcasts, die zwischen dem Zeitraum vom <samp>15ten April 2010</samp> und dem <samp>
+                        28ten
+                        August 2012 </samp> erstellt worden sind.
+                    </td>
+                </tr>
+                <tr>
+                    <td><big>Verzeichnisse</big>
+                    </td>
+                    <td>
+                        <form class="ym-form">
+                            <div class="ym-fbox">
+                                <label for="pathString">Pfad:</label>
+                                <input type="text" value="\Studio\A\" name="pathString" size="8"/>
+                            </div>
+                        </form>
+                    </td>
+                    <td>Findet alle Podcasts, im Ordner <samp>\Studio\A\</samp> gespeichert sind.
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% endblock content %}

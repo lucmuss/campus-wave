@@ -1,0 +1,147 @@
+{% extends "pages/search_form_page.html" %}
+{% block title %}
+Such Ergebnisse der Podcast Suche
+{% endblock %}
+{% block result %}
+<section class="ym-gbox">
+    <div id="downToResult">
+    </div>
+    {% if result_list %}
+    <p class="box success">
+        <b>Deine Suche war erfolgreich.</b><br>
+        <big>Gefundene Teilstücke: <b>{{ result_number_len }}</b></big><br>
+        <big>Gefundene Konzepte: <b>{{ found_concepts|length }}</b></big><br>
+        {% if found_concept_terms %}
+        <big>Gefundene Wörter der Konzepte: <b>{{ found_concept_terms|length }}</b></big>
+        {% endif %}
+    </p>
+    {% endif %}
+    {% if found_concepts %}
+    <p class="box info"><b>In deiner Suche wurden folgende Konzepte gefunden:</b>
+        <br>
+        {% for concept in found_concepts %}
+        {% if concept in current_search_concepts %}
+        <a href="{{  url_for('search_page', searchConcept=concept) }}"
+           class="ym-button ym-success ym-star ym-small boldButtonInput conceptButton">{{ concept }}</a>
+        {% else %}
+        <a href="{{  url_for('search_page', searchConcept=concept) }}"
+           class="ym-button ym-warning ym-star ym-small boldButtonInput conceptButton">{{ concept }}</a>
+        {% endif %}
+        {% endfor %}
+        {% if found_concept_terms %}
+        <br>
+        <br>
+        <b>Das Konzept steht mit folgenden Schlüsselwörtern in Verbindung:</b><br>
+        {% for term in found_concept_terms %}
+        <big><a href="{{ url_for('search_page', searchTerm=term) }}">{{ term }}</a></big>,
+        {% endfor %}
+        {% endif %}
+    </p>
+    {% endif %}
+    {% if result_list %}
+    <p class="box info"><tt>Seite {{ search_parameter['page_number'] }} von {{ max_search_pages }} | Seiten:
+        {% for page_count in range(max_search_pages) %}
+        {% set page_count = page_count + 1 %}
+        {% set current_page = search_parameter['page_number'] %}
+        {% if page_count is equalto current_page %}
+        <big>&lt;<a
+                href="{{  url_for('search_page', searchTerm=search_parameter['search_term'], searchConcept=search_parameter['search_concept'], dateFrom=search_parameter['date_from'], dateTo=search_parameter['date_to'], durationFrom=search_parameter['duration_from'], durationTo=search_parameter['duration_to'], searchPath = search_parameter['search_path'], resultNumber=search_parameter['result_number'], pageNumber=page_count) }}">{{
+            page_count }}</a>&gt;</big>
+        {% else %}
+        <a href="{{  url_for('search_page', searchTerm=search_parameter['search_term'], searchConcept=search_parameter['search_concept'], dateFrom=search_parameter['date_from'], dateTo=search_parameter['date_to'], durationFrom=search_parameter['duration_from'], durationTo=search_parameter['duration_to'], searchPath = search_parameter['search_path'], resultNumber=search_parameter['result_number'], pageNumber=page_count) }}">{{
+            page_count }}</a>
+        {% endif %}
+        {% endfor %}
+    </tt>
+    </p>
+    {% endif %}
+    {% for rank_counter, file_location, audio_file_location, file_name, file_creation_date, file_duration, file_type,
+    file_location_path, file_part_duration, important_words, found_concepts, speech_text, audio_file_part,
+    download_file_location, recognition_precision, file_id in result_list
+    %}
+    <div class="searchResult">
+        <table class="resultTable">
+            <thead>
+            </thead>
+            <tbody>
+            <tr class="resultHeader">
+                <td><big class="tag_big">{{ rank_counter }}</big>
+                </td>
+                <td colspan="2">
+                    <div class="ym-gbox">
+                        <audio preload="None" controls>
+                            <source src="{{ audio_file_location }}" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </td>
+                <td>
+                    <a href="{{ download_file_location }}"
+                       title="Gesamte Audio Datei herunterladen"
+                       class="ym-button ym-reply boldButtonInput conceptButton">Download</a>
+                </td>
+            </tr>
+            <tr class="resultRow">
+                <td><strong>Datei</strong></td>
+                <td><samp>
+                    <a href="{{ url_for('search_page', searchId=file_id) }}">{{ file_name }}</a>
+                </samp> <b>(Teilstück:
+                    {{ audio_file_part }})</b>
+                </td>
+                <td><strong>Erstellt</strong></td>
+                <td><samp>{{ file_creation_date|safe }}</samp></td>
+            </tr>
+            <tr class="resultRow">
+                <td><strong>Pfad</strong></td>
+                <td><samp>
+                    {% for path_part in file_location_path %} <a
+                        href="{{ url_for('search_page', searchPath=path_part) }}">{{ path_part }}</a> \{% endfor %}
+                </samp>
+                </td>
+                <td><strong>Länge</strong></td>
+                <td><samp>{{ file_duration }}</samp></td>
+            </tr>
+            {% if found_concepts %}
+            <tr class="resultRow relevant_words">
+                <td><strong>Konzepte</strong></td>
+                <td colspan="3">
+                    {% for concept in found_concepts %}
+                    <a href="{{  url_for('search_page', searchConcept=concept) }}"
+                       class="ym-button ym-warning ym-star ym-small boldButtonInput conceptButton">{{ concept }}</a>
+                    {% endfor %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if important_words %}
+            <tr class="resultRow relevant_words">
+                <td><strong>Relevante Wörter</strong></td>
+                <td colspan="3">
+                    {% for term, term_score, term_weight, weight_class in important_words %}
+                    <big class="{{ weight_class }}"><a href="{{  url_for('search_page', searchTerm=term) }}">{{ term
+                        }}</a></big>,
+                    {% endfor %}
+                </td>
+            </tr>
+            {% endif %}
+            <tr class="resultRow">
+                <td><strong>Erkannter Text</strong><br>{{ recognition_precision }}</td>
+                <td colspan="3">
+                    [...]
+                    {% for token, mark_type in speech_text %}
+                    {% if mark_type is equalto 1 %}
+                    <mark><a href="{{ url_for('search_page', searchTerm=token) }}">{{ token }}</a></mark>
+                    {% elif mark_type is equalto 2 %}
+                    <a href="{{ url_for('search_page', searchTerm=token) }}">{{ token }}</a>
+                    {% else %}
+                    {{ token }}
+                    {% endif %}
+                    {% endfor %}
+                    [...]
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    {% endfor %}
+</section>
+{% endblock result %}

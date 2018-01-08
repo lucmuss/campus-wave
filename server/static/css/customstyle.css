@@ -1,0 +1,175 @@
+
+.ym-wrapper {
+      min-width: 760px;
+      max-width: 70em;
+	  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+	
+.ym-wbox { 
+padding: 1em; 
+}
+
+main {
+padding-top: 1em;
+padding-bottom: 1em;
+}
+
+.searchResult {
+background: #eee none repeat scroll 0% 0%;
+border: 2px solid #ccc;
+margin: 0px 0px 4em;
+padding: 0.5em;
+box-shadow: 0px 0px 3px #ccc;
+}
+
+.resultHeader {
+background-color: #eeeeee;
+}
+
+.resultHeader > td {
+background-color: #eeeeee;
+padding: 0.56em 0.5em;
+}
+
+.resultRow {
+background-color: #fff;
+}
+
+.resultRow > td {
+padding: 0.56em 0.5em;
+}
+
+.sliderFix {
+padding-top: 0.55em;
+}
+
+.resultTable {
+margin: 0px 0px 0em;
+}
+
+.ym-hlist > ul > li > a {
+color: #d9d9d9;
+font-weight: bold;
+font-size: 1.15em;
+}
+
+.ym-hlist {
+background: #595959 none repeat scroll 0% 0%;
+}
+
+.secondsFromHelp, .secondsToHelp, .pathHelp {
+color: #404040;
+
+}
+
+
+.logoHeader {
+font-weight: bold;
+#color: #06C;
+margin-bottom: 0.3em;
+}
+
+.hiddenDataForm {
+display: None;
+}
+
+.termList {
+padding-top: 0.5em;
+}
+
+#mainTextInput {
+padding: 7px 0.3em;
+}
+
+#boldButtonInput, .boldButtonInput {
+font-weight: bold !important;
+}
+
+.conceptButton, .visualButton {
+margin: 0.30em;
+}
+
+mark > a {
+color: #000;
+}
+
+header > img {
+float: left;
+display: inline;
+}
+
+header {
+background-color: #fff;
+}
+
+section {
+margin-top: 0em;
+}
+
+#database_text_log {
+font-size: 0.7em;
+width: 100%;
+}
+
+#logout_color {
+color: #fff;
+}
+
+.string_date {
+font-size: 90%;
+}
+
+.special_narrow {
+background-color: #fff;
+margin-top: 4em;
+}
+
+.special_narrow > th, td {
+    line-height: 1.5em;
+    vertical-align: top;
+    padding: 0.45em 0.24em;
+}
+
+.ym-small-special {
+font-size: 0.96em;
+}
+
+kbd > mark {
+padding: 0 0.2em;
+}
+
+.tag_big {
+font-size: 164%;
+font-weight: bold;
+}
+
+.tag_medium {
+font-size: 116%;
+font-weight: bold;
+}
+
+.tag_normal {
+font-size: 104%;
+}
+
+audio {
+width: 100%;
+}
+
+.numberHits {
+font-size: 364%;
+font-weight: bold;
+}
+
+.hiddenOptionsContainer {
+display: none;
+}
+
+.hiddenSecondForm {
+display: none;
+}

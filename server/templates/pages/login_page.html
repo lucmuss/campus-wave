@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}
+Anmeldung
+{% endblock %}
+{% block content %}
+<section class="ym-gbox">
+    <h2>Anmeldung zur Suchmaschinen Verwaltung:</h2>
+    {% if show_login_warning %}
+    <p class="box warning">
+        <b>Hallo Fremder.</b>
+        <br> Das Passwort für die Suchmaschinen Verwaltung setzt sich aus
+        <ins>zwei</ins>
+        Wörtern zusammen. Beide Wörter werden
+        <ins>klein</ins>
+        und
+        <ins>zusammen</ins>
+        geschrieben. Das
+        <ins>erste</ins>
+        Wort ist das standard Passwort für die Redaktionsrechner. Das
+        <ins>zweite</ins>
+        Wort ist ein <a href="http://www.camera-passau.de/">studentischer Nachtclub</a> in Passau, in dem die CampusCrew
+        schon mehrere Parties gefeiert hat.
+    </p>
+    {% endif %}
+    <form class="ym-form" action="{{ url_for('login_page') }}" method="post">
+        <div class="ym-fbox">
+            <label for="mainTextInput"><b>Passwort</b>
+            </label>
+            <div class="ym-fbox-wrap ym-grid">
+                <div class="ym-g50 ym-gl">
+                    <input type="text" id="mainTextInput" value="" name="password"/>
+                </div>
+            </div>
+        </div>
+        <div class="ym-fbox-footer">
+            <div class="ym-fbox-wrap ym-grid">
+                <div class="ym-g50 ym-gl">
+                    <button type="submit" class="ym-button" id="boldButtonInput">Login</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+{% endblock content %}

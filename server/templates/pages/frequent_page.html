@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}
+Häufige Suchwörter
+{% endblock %}
+{% block content %}
+<section class="ym-gbox">
+    <br>
+    <div class="ym-grid">
+        <div class="ym-g80 ym-gl">
+            <div class="ym-gbox">
+                <h4>Häufige Suchwörter:</h4>
+                {% include 'tables/frequent_table.html' %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

@@ -1,0 +1,53 @@
+lit a q:Vocabulary .
+
+lit:Stadt a q:BSort .
+
+lit:Stadt q:hasAttribute (lit:Rio, lit:Mainz, lit:Genf, lit:Hamburg, lit:Heidelberg, lit:Wien, lit:Lissabon, lit:Muenchen, lit:Speyer, lit:Passau, lit:Berlin, lit:Linz, lit:Muenster, lit:Frankfurt, lit:Dortmund, lit:Bruessel, lit:Bonn, lit:Rom,  lit:Mailand, lit:Madrid, lit:Augsburg, lit:Barcelona) .
+
+lit:Rio q:hasObject ("rio") .
+
+lit:Mannheimer q:hasObject ("mannheim", "mannheimer") .
+
+lit:Mainz q:hasObject ("mainzer", "mainz") .
+
+lit:Genf q:hasObject ("genfer", "genf") .
+
+lit:Hamburg q:hasObject ("hamburger", "hamburg") .
+
+lit:Heidelberg q:hasObject ("heidelberg", "heidelberger") .
+
+lit:Wien q:hasObject ("wiender", "wien") .
+
+lit:Lissabon q:hasObject ("lissabon") .
+
+lit:Muenchen q:hasObject ("münchen", "münchner") .
+
+lit:Berlin q:hasObject ("berlin", "berliner") .
+
+lit:Speyer q:hasObject ("speyer") .
+
+lit:Muenster q:hasObject ("münster") .
+
+lit:Bruessel q:hasObject ("brüssel") .
+
+lit:Frankfurt q:hasObject ("frankfurt") .
+
+lit:Bonn q:hasObject ("bonn", "bonner") .
+
+lit:Passau q:hasObject ("passau", "passauer") .
+
+lit:Linz q:hasObject ("linz", "linzer") .
+
+lit:Barcelona q:hasObject ("barcelona") .
+
+lit:Madrid q:hasObject ("madrid") .
+
+lit:Augsburg q:hasObject ("augsburg", "augsburger") .
+
+lit:Rom q:hasObject ("rom") .
+
+lit:Mailand q:hasObject ("mailand", "mailänder") .
+
+lit:Dortmund q:hasObject ("dortmund", "dortmunder") .
+
+

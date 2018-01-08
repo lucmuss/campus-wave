@@ -1,0 +1,13 @@
+lit a q:Vocabulary .
+
+lit:Politik a q:BSort .
+
+lit:Politik q:hasAttribute (lit:AuslandPolitik, lit:InlandPolitik, lit:Parteien, lit:Regierung) .
+
+lit:InlandPolitik q:hasObject ("hilfe", "sicherheit", "bürger", "landes", "rates", "politik", "union", "staat", "wahl", "parlament","hilfen", "verordnung", "kommission", "partei", "debatte", "mehrheit", "wahlen", "krise", "präsident", "minister", "gesetz", "parteien", "bund", "verfassung","verhandlungen", "gesetze", "staates", "fraktion", "amt", "vertreter","konsens" ,"parlaments" ,"abstimmung" ,"abgeordnete") .
+
+lit:AuslandPolitik q:hasObject ("nato", "gipfeltreffen", "un", "welt" ,"aussenminister", "aussenpolitik", "hilfe", "europa", "ländern", "sicherheit", "länder", "staaten", "eu", "rates", "politik", "mitglieder", "hilfen", "mitglied", "mitgliedstaaten", "kommission", "krieg", "wahlen","regierung", "krise", "präsident", "minister", "frieden", "europas", "drittländern" , "charta", "verhandlungen","mitgliedern", "gipfel", "parlaments", "abgeordnete","beziehungen") .
+
+lit:Parteien q:hasObject ("grüne", "fdp", "spd", "cdu", "linke", "csu") .
+
+lit:Regierung q:hasObject ("amtszeit", "kanzlerin", "merkel", "regierung", "csu") .

@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+{% block title %}
+Über
+{% endblock %}
+{% block content %}
+<section class="ym-gbox">
+    <div class="ym-grid">
+        <div class="ym-g80 ym-gl">
+            <h2>Informationen zur Podcast Suchmaschine</h2>
+            <p>
+                Die Podcast Suchmaschine (CampusWave) wurde von <a href="https://www.facebook.com/lucas.mussmeacher">Lucas
+                Mußmächer</a> für die Masterarbeit im Fachgebiet Master Informatik entwickelt. Der Lehrstuhl für
+                Intelligente Text Verarbeitung an der Universität Passau hat mit mir zusammen das Projekt verwirklicht.
+                Der Betreuer des Projekts war
+                <a href="https://www.xing.com/profile/Siegfried_Handschuh">Prof. Dr. Siegfried Handschuh</a>. Besonderen
+                Dank gilt der <a href="http://www.campuscrew-passau.de/">CampusCrew Passau</a>, die mir ihre Audio Daten
+                zu Analyse überlassen hat und <a
+                    href="http://www.fim.uni-passau.de/digital-libraries/lehrstuhlteam/hiwis/">Thomas Huber</a>, der mir
+                bei der Einrichtung des Systems geholfen hat.
+            </p>
+            <p>
+                Die Datenanalyse umfasste <b>260.000 Dateien</b> mit einer gesamt Kapazität von ca. <b>1,8
+                Terra Byte</b>. Währned der Sprach Erkennungs Phase wurden <b>15.000</b> verschiedene Audio Dateien mit
+                einer Kapazität von ca. <b>200
+                Gigabyte</b> analysiert.
+            </p>
+            <p>
+                Die erste Projekt Präsentation kann <a href="static/download/podcast_search_presentation.pdf">hier</a>
+                heruntergeladen werden. Diese Präsentation wurde im Rahmen der ersten Vorstellung des Projekts während
+                einer Redaktionssitzung der CampusCrew abgehalten.
+            </p>
+            <p>
+                Die digitale Version der Masterarbeit kann <a href="static/download/podcast_search_thesis.pdf">hier</a>
+                heruntergeladen werden. Der Quellcode der Podcast Suchmaschine wird auf Anfrage veröffentlicht. Bitte
+                schreiben sie mir bei Rückfragen zum Projekt eine Email an diese Adresse (<samp>skymuss[a]web.de</samp>).
+            </p>
+            <br>
+            <h3>Verwendete Software Pakete</h3>
+            <table>
+                <thead>
+                <tr>
+                    <th> Software Paket</th>
+                    <th> Erklährung</th>
+                    <th> Verlinkung</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <img class="flexible" src="static/images/yaml.png"
+                             style="background-color: #222; width: 250px;"/>
+                    </td>
+                    <td>
+                        Mit diesem CSS Framework wurde die graphischen Elemente der web-basierten Benutzeroberfläche
+                        erstellt.
+                    </td>
+                    <td>
+                        <a href="http://www.yaml.de/">Link zur Webseite</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img class="flexible" src="static/images/jquery.png"
+                             style="background-color: #222; width: 250px;"/>
+                    </td>
+                    <td>
+                        Mit dieser Javascript Bibliothek wurden einige Formulare des Such-Interfaces visuell
+                        angereichert.
+                    </td>
+                    <td>
+                        <a href="https://jqueryui.com">Link zur Webseite</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img class="flexible" src="static/images/chartjs.png"
+                             style="background-color: #ccc; width: 250px;"/>
+                    </td>
+                    <td>
+                        Mit dieser Javascript Bibliothek wurden die verwandten Schlüsselwörter als Kuchendiagramm
+                        visualisiert.
+                    </td>
+                    <td>
+                        <a href="http://www.chartjs.org/">Link zur Webseite</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img class="flexible" src="static/images/python.png"
+                             style="background-color: #ccc; width: 250px;"/>
+                    </td>
+                    <td>
+                        Die komplette Suchmaschine wurde mit der Programmiersprache Python 3.5 programmiert.
+                    </td>
+                    <td>
+                        <a href="http://www.python.org">Link zur Webseite</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img class="flexible" src="static/images/tinytag.png"
+                             style="background-color: #ccc; width: 250px;"/>
+                    </td>
+                    <td>
+                        Eine auf Python basierte Bibliothek zum Auslesen von Metadaten (ID3 Tags) von Audio Dateien
+                        (mp3s).
+                    </td>
+                    <td>
+                        <a href="https://github.com/devsnd/tinytag/">Link zur Webseite</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img class="flexible" src="static/images/flask.png"
+                             style="background-color: #ccc; width: 200px;"/>
+                    </td>
+                    <td>
+                        Ein auf Python basierter Webserver. Mit diesem Software Paket wurde die gesamte Webseite
+                        erstellt.
+                    </td>
+                    <td>
+                        <a href="http://flask.pocoo.org/">Link zur Webseite</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img class="flexible" src="static/images/woosh.png"
+                             style="background-color: #ccc; width: 250px;"/>
+                    </td>
+                    <td>
+                        Eine auf Python basierte Bibliothek zum Suchen und Speichern von Text Dokumenten.
+                    </td>
+                    <td>
+                        <a href="https://bitbucket.org/mchaput/whoosh/">Link zur Webseite</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img class="flexible" src="static/images/pydub.png"
+                             style="background-color: #ccc; width: 250px;"/>
+                    </td>
+                    <td>
+                        Eine auf Python basierte Bibliothek zum Verarbeiten von unterschiedlichen Audio Formaten wie z.B
+                        mp3, wma, oder wav.
+                    </td>
+                    <td>
+                        <a href="http://pydub.com/">Link zur Webseite</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img class="flexible" src="static/images/scikit.png"
+                             style="background-color: #ccc; width: 250px;"/>
+                    </td>
+                    <td>
+                        Eine auf Python basierte Bibliothek zur Analyse und Verarbeitung von Daten.
+                    </td>
+                    <td>
+                        <a href="http://scikit-learn.org/stable/">Link zur Webseite</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img class="flexible" src="static/images/spacy.png"
+                             style="background-color: #ccc; width: 250px;"/>
+                    </td>
+                    <td>
+                        Eine auf Python basierte Bibliothek zum Verarbeiten von Text Daten in deutscher und englischer
+                        Sprache.
+                    </td>
+                    <td>
+                        <a href="https://spacy.io/">Link zur Webseite</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img class="flexible" src="static/images/pocketshinx.png"
+                             style="background-color: #ccc; width: 250px;"/>
+                    </td>
+                    <td>
+                        Eine auf Python basierte Bibliothek zur Spracherkennung von Audio Daten.
+                    </td>
+                    <td>
+                        <a href="https://pypi.python.org/pypi/pocketsphinx/">Link zur Webseite</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% endblock content %}

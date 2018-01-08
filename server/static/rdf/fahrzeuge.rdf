@@ -1,0 +1,17 @@
+lit a q:Vocabulary .
+
+lit:Fahrzeuge a q:BSort .
+
+lit:Fahrzeuge q:hasAttribute (lit:Auto, lit:Flugzeug, lit:Bahn, lit:Bus, lit:Fahrrad, lit:Dreirad) .
+
+lit:Auto q:hasObject ("mercedes", "opel", "bmw", "audi", "auto", "autos", "vw") .
+
+lit:Flugzeug q:hasObject ("flugzeug", "flugzeuge", "pilot", "flughäfen", "flughafen") .
+
+lit:Bahn q:hasObject ("bahn", "fahrplan") .
+
+lit:Bus q:hasObject ("bus", "fahrplan") .
+
+lit:Fahrrad q:hasObject ("fahrrad", "fahrräder") .
+
+lit:Dreirad q:hasObject ("einrad", "dreirad", "vierad") .

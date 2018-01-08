@@ -1,0 +1,19 @@
+lit a q:Vocabulary .
+
+lit:Kultur a q:BSort .
+
+lit:Kultur q:hasAttribute (lit:Radio, lit:Kino, lit:Theater, lit:Kunst, lit:Fernsehen, lit:Literatur, lit:Druck) .
+
+lit:Kino q:hasObject ("kino", "leinwand", "film", "schauspieler", "ausverkauf", "schauspielerin", "rolle", "film", "filme", "hollywood") .
+
+lit:Literatur q:hasObject ("wörter", "leser", "poesie", "gedicht", "buch", "philosophen", "philosophie", "lektion", "bücher", "literatur", "bibliothek", "roman", "dichter", "gedicht") .
+
+lit:Fernsehen q:hasObject ("berichterstatter", "tatort", "programm", "tv", "schauspieler", "schauspielerin", "sendung", "sendungen", "film", "filme", "journalisten", "journalist", "nachrichten", "zuschauern", "zuschauer") .
+
+lit:Kunst q:hasObject ("künstler", "kunst", "gemälde") .
+
+lit:Radio q:hasObject ("studio", "rundfunk", "radio", "sendung", "interview", "sendungen", "programm", "moderator", "beitrag") .
+
+lit:Theater q:hasObject ("theater", "musical", "schauspieler", "bühne", "kabarett") .
+
+lit:Druck q:hasObject ("leser", "spiegel", "magazin", "zeitung", "presse", "artikel") .

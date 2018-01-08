@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}
+Relevante Wörter
+{% endblock %}
+{% block content %}
+<section class="ym-gbox">
+    <br>
+    <div class="ym-grid">
+        <div class="ym-gbox">
+            <h4>Relevante Wörter:</h4>
+            {% include 'tables/relevant_unigram_table.html' %}
+        </div>
+    </div>
+</section>
+{% endblock content %}

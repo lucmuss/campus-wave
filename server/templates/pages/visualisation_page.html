@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}
+Visualisierung
+{% endblock %}
+{% block content %}
+<section class="ym-gbox">
+    <div class="ym-grid">
+        <form class="ym-form ym-columnar" action="{{ url_for('visualize_page') }}">
+            <div class="ym-fbox">
+                <label for="mainTextInput"><b>Schlüsselwort:</b>
+                </label>
+                <div class="ym-fbox-wrap ym-grid">
+                    <div class="ym-g50 ym-gl">
+                        <div class="ym-gbox">
+                            <input type="text" name="searchTerm" value="{{ request.args.get('searchTerm', '') }}"
+                                   id="mainTextInput"/>
+                        </div>
+                    </div>
+                    <div class="ym-g50 ym-gl">
+                        <div class="ym-gbox">
+                            <button class="ym-button ym-success" id="boldButtonInput">Visualisierungs Suche</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="ym-gl ym-g50">
+            <h2>Visualisierung von: <a href="{{ url_for('search_page', searchTerm=visualize_term) }}">
+                {{ visualize_term }}</a>
+            </h2>
+            <div class="ym-gbox">
+                <h3>Visualisierung der Häufigkeiten:</h3>
+                <input id="termChartData" type="text" value="{{ counter_string }}" class="hiddenDataForm"/>
+                <input id="termChartBackgroundColors" type="text"
+                       value="{{ color_string }}"
+                       class="hiddenDataForm"/>
+                <input id="termChartDataLabels" type="text"
+                       value="{{ term_string }}" class="hiddenDataForm"/>
+                <canvas id="termChart"></canvas>
+            </div>
+        </div>
+        <div class="ym-gl ym-g50">
+            <div class="ym-gbox">
+                {% include 'tables/visualisation_table.html' %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

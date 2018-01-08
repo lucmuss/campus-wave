@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Podcast Suche: {% block title %}{% endblock %}</title>
+    <meta name="description" content="Podcast Suchmaschine des Uniradios CampusCrew Passau"/>
+    <meta name="author" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="static/css/yaml/core/base.css" rel="stylesheet" type="text/css"/>
+    <link href="static/css/yaml/navigation/hlist.css" rel="stylesheet" type="text/css"/>
+    <link href="static/css/yaml/screen/typography.css" rel="stylesheet" type="text/css"/>
+    <link href="static/css/yaml/forms/gray-theme.css" rel="stylesheet" type="text/css"/>
+    <link href="static/css/jquery/themes/base/jquery-ui.css" rel="stylesheet" type="text/css">
+    <link href="static/css/customstyle.css" rel="stylesheet" type="text/css"/>
+    <script src="static/javascript/lib/chartjs/Chart.js"></script>
+    <script src="static/javascript/lib/jquery/jquery-1.10.2.js"></script>
+    <script src="static/javascript/lib/jquery/ui/jquery-ui.js"></script>
+    <!--[if lte IE 7]>
+    <link href="static/css/yaml/core/iehacks.css" rel="stylesheet" type="text/css"/>
+    <![endif]-->
+    <!--[if lt IE 9]>
+    <script src="static/javascript/lib/html5shiv/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="ym-wrapper">
+    <div class="ym-wbox">
+        <header class="ym-gbox">
+            <img src="static/images/logo_wave.png" width="360" height="80">
+        </header>
+        <nav class="ym-hlist">
+            <ul>
+                <li><a href="{{ url_for('search_page') }}"><b>Suche</b></a>
+                </li>
+                <li><a href="{{ url_for('visualize_page') }}"><b>Visualisierung</b></a>
+                </li>
+                <li><a href="{{ url_for('history_page') }}"><b>Historie</b></a>
+                </li>
+                <li><a href="{{ url_for('frequent_page') }}"><b>Such Statistik</b></a>
+                </li>
+                <li><a href="{{ url_for('statistic_page') }}"><b>Wörter</b></a>
+                </li>
+                <li><a href="{{ url_for('statistic_bigram_page') }}"><b>WortPaare</b></a>
+                </li>
+                <li><a href="{{ url_for('help_page') }}"><b>Hilfe</b></a>
+                </li>
+                <li><a href="{{ url_for('about_page') }}"><b>Über</b></a>
+                </li>
+                <li><a href="{{ url_for('login_page') }}"><b>Verwaltung</b></a>
+                </li>
+                {% if ('password' in session) and session['password']: %}
+                <li><a href="{{ url_for('logout_page') }}" id="logout_color"><b>Ausloggen</b></a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        <main>
+            {% block content %}
+            {% endblock content %}
+        </main>
+        <footer class="ym-gbox">
+            Das Layout basiert auf <a href="http://www.yaml.de">YAML</a> - Einem modularen CSS
+            Framework
+        </footer>
+    </div>
+</div>
+<script src="static/javascript/customscript.js"></script>
+</body>
+</html>
