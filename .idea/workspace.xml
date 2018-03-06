@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5e8b36e2-2672-4c67-9317-005e472722fb" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/test_git.txt" />
-      <change beforePath="$PROJECT_DIR$/.idea/campuswave.iml" afterPath="$PROJECT_DIR$/.idea/campuswave.iml" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" afterPath="$PROJECT_DIR$/requirements.txt" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/server/static/data/" />
     <ignored path="$PROJECT_DIR$/server/static/download/" />
