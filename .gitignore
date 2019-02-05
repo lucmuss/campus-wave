@@ -1,0 +1,32 @@
+# Version 1
+# IntelliJ Files
+.idea/*
+
+# Git Files
+.git/*
+
+# Python Cache
+__pycache__/*
+
+# Bytecode-compiled
+*.pyc
+
+# Bytecode-compiled optimized
+*.pyo
+*.pyd
+
+# Log Files
+*.log
+
+# Html Files
+*.html
+
+# Html Files
+*.html
+
+# Jupyter Notebook Folder
+notebooks/*
+.ipynb_checkpoints/*
+
+# Jupyter Notebook Files
+*.ipynb
