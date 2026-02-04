@@ -30,3 +30,9 @@ notebooks/*
 
 # Jupyter Notebook Files
 *.ipynb
+
+# Ruff cache
+.ruff_cache/
+
+# uv cache
+.uv/

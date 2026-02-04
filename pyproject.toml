@@ -1,0 +1,60 @@
+[project]
+name = "campus-wave"
+version = "0.1.0"
+description = "Ontology-Based Audio Information Retrieval System"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "flask>=2.0",
+    "nltk>=3.8",
+    "whoosh>=2.7",
+    "pocketsphinx>=5.0",
+    "pydub>=0.25",
+    "scikit-learn>=1.3",
+    "spacy>=3.7",
+    "tinytag>=1.8",
+    "pyparsing>=3.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "mypy>=1.0",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py38"
+src = ["server", "controller", "model"]
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "F",    # pyflakes
+    "W",    # pycodestyle warnings
+    "I",    # isort
+    "N",    # pep8-naming
+    "UP",   # pyupgrade
+    "B",    # flake8-bugbear
+    "A",    # flake8-builtins
+    "C4",   # flake8-comprehensions
+    "SIM",  # flake8-simplify
+]
+ignore = ["E203", "E501", "E402", "F401"]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--verbose --strict-markers --tb=short --cov=server --cov-report=term-missing"
+markers = [
+    "unit: Unit tests",
+    "integration: Integration tests",
+    "slow: Slow tests",
+]

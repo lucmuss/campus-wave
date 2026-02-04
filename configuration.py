@@ -237,10 +237,6 @@ SPEECH_RECOGNITION_POCKET_SPHINX_CONFIG = {
     'hmm': SPEECH_RECOGNITION_POCKET_SPHINX_HMM,
     'lm': SPEECH_RECOGNITION_POCKET_SPHINX_LM,
     'dict': SPEECH_RECOGNITION_POCKET_SPHINX_DICT,
-    'audio_device': None,
-    'remove_noise': True,
-    'remove_silence': True,
-    'round_filters': True,
 }
 
 # Defines the first probability threshold in filtering process of wrong recognized words
