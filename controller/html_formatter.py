@@ -1,5 +1,6 @@
 import datetime
-import configuration
+
+from campus_wave import configuration
 
 
 class HtmlFormatter:
@@ -32,7 +33,7 @@ class HtmlFormatter:
         minutes = (seconds % 3600) // 60
         seconds = (seconds % 60)
 
-        return "{:02d}:{:02d}:{:02d}".format(hours, minutes, seconds)
+        return f"{hours:02d}:{minutes:02d}:{seconds:02d}"
 
     def get_speech_recognition_precision(self, token_list):
         """Estimates the level of precision in percent of the recognized speech.
@@ -46,7 +47,7 @@ class HtmlFormatter:
             1 for token in token_list if token == configuration.SPEECH_RECOGNITION_UNKNOWN_SPEECH_TERM)
 
         recognition_precision = 1.0 - (wrong_recognition_len / token_len)
-        return_string = "{0:.0f}%".format(recognition_precision * 100)
+        return_string = f"{recognition_precision * 100:.0f}%"
         return return_string
 
     def format_creation_date(self, timestamp):

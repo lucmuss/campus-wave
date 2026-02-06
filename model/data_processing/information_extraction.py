@@ -1,11 +1,12 @@
 import json
 import os
-import configuration
 
-from model.data_processing.keyword_ranking import KeywordRanking
+from campus_wave import configuration
+
 from model.data_processing.concept_mapping import ConceptMapping
-from model.data_processing.similarity_computation import SimilarityComputation
+from model.data_processing.keyword_ranking import KeywordRanking
 from model.data_processing.part_of_speech_tagging import PartOfSpeechTagging
+from model.data_processing.similarity_computation import SimilarityComputation
 
 
 class InformationExtraction:
@@ -58,7 +59,7 @@ class InformationExtraction:
             for key, value in self._text_dictionary.items():
                 line_list = [key, value]
                 json_content = json.dumps(line_list)
-                file.write("%s\n" % json_content)
+                file.write(f"{json_content}\n")
 
     def load_database(self):
         """Loads the speech data from the hard disc.
@@ -67,7 +68,7 @@ class InformationExtraction:
         """
 
         if os.path.isfile(configuration.INFORMATION_EXTRACTION_STORAGE_FILE):
-            with open(configuration.INFORMATION_EXTRACTION_STORAGE_FILE, 'r', encoding="utf8") as file:
+            with open(configuration.INFORMATION_EXTRACTION_STORAGE_FILE, encoding="utf8") as file:
                 for one_line in file.readlines():
                     line_list = json.loads(one_line)
                     file_id = line_list[0]
@@ -88,7 +89,7 @@ class InformationExtraction:
             file_location = file_location.replace(key, value)
 
         # splitting the file path into multiple locations
-        path_keywords = set(path_string for path_string in file_location.split(' ') if path_string)
+        path_keywords = {path_string for path_string in file_location.split(' ') if path_string}
 
         # removes non relevant locations from the file path
         return_set = path_keywords.difference(configuration.INFORMATION_EXTRACTION_PATH_WRONG_KEYWORDS)
@@ -123,11 +124,11 @@ class InformationExtraction:
             if self._added_file_counter < configuration.INFORMATION_EXTRACTION_MAX_FILES:
 
                 # checks if the file is already in the database
-                if not (file_id in self._text_dictionary):
+                if file_id not in self._text_dictionary:
 
                     if (file_id in audio_database) and (file_id in file_database):
 
-                        result_token_list = list()
+                        result_token_list = []
 
                         audio_part_list = audio_database[file_id]
                         file_path, file_name, file_type, creation_date_timestamp = file_database[file_id]
@@ -184,7 +185,7 @@ class InformationExtraction:
 
         self._init_concept_mapping()
 
-        for file_id, file_info in self._text_dictionary.items():
+        for _file_id, file_info in self._text_dictionary.items():
 
             for index, file_content in enumerate(file_info):
                 file_part, token_list, important_words_list, pos_token_list, concept_list = file_content
@@ -213,7 +214,7 @@ class InformationExtraction:
             # defines the maximum number of audio files in this processing step
             if self._processed_file_counter < configuration.INFORMATION_EXTRACTION_MAX_FILES:
 
-                for file_part, lemma_token_list, important_words, pos_token_list, concept_list in file_info:
+                for file_part, _lemma_token_list, _important_words, pos_token_list, _concept_list in file_info:
                     # initializes the POS tagging algorithm
                     self._init_pos_tagging()
 

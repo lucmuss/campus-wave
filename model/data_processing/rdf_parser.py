@@ -39,10 +39,10 @@ class RdfParser:
         """
 
         data = self.read_in_rdf_file(filename)
-        pattern_list = dict()
-        attribute_list = dict()
-        object_list = dict()
-        scale_list = dict()
+        pattern_list = {}
+        attribute_list = {}
+        object_list = {}
+        scale_list = {}
 
         for statements in data:
             subject, relation, relation_object = self.__search.parseString(statements)
@@ -70,7 +70,7 @@ class RdfParser:
             raise Exception("Invalid file format")
 
         cleaned_rdf = []
-        with open(filename, 'r', encoding="utf-8") as file:
+        with open(filename, encoding="utf-8") as file:
             data = file.read()
 
             # splits the whole content into multiple lines

@@ -1,7 +1,8 @@
-import pydub
-import configuration
-import os
 import json
+import os
+
+from campus_wave import configuration
+import pydub
 
 
 class AudioProcessing:
@@ -33,7 +34,7 @@ class AudioProcessing:
             for key, value in self._audio_dictionary.items():
                 line_list = [key, value]
                 json_content = json.dumps(line_list)
-                file.write("%s\n" % json_content)
+                file.write(f"{json_content}\n")
 
     def load_database(self):
         """Loads all audio segments from the hard disc.
@@ -42,7 +43,7 @@ class AudioProcessing:
         """
 
         if os.path.isfile(configuration.AUDIO_PROCESSING_STORAGE_FILE):
-            with open(configuration.AUDIO_PROCESSING_STORAGE_FILE, 'r', encoding="utf8") as file:
+            with open(configuration.AUDIO_PROCESSING_STORAGE_FILE, encoding="utf8") as file:
                 for one_line in file.readlines():
                     line_list = json.loads(one_line)
                     file_id = line_list[0]
@@ -137,10 +138,7 @@ class AudioProcessing:
 
         """
 
-        if configuration.AUDIO_PROCESSING_MAX_DURATION >= len(audio_segment) >= configuration.AUDIO_PROCESSING_MIN_DURATION:
-            return True
-        else:
-            return False
+        return configuration.AUDIO_PROCESSING_MAX_DURATION >= len(audio_segment) >= configuration.AUDIO_PROCESSING_MIN_DURATION
 
     @staticmethod
     def _export_audio_segment(audio_segment, file_path, file_type):
@@ -157,7 +155,7 @@ class AudioProcessing:
 
         """
 
-        return "{}_{}.{}".format(file_id, file_part, file_type)
+        return f"{file_id}_{file_part}.{file_type}"
 
     def update_database(self, file_database):
         """Converts all audio files into the audio format wav and splits these files into smaller audio segments.
@@ -175,7 +173,7 @@ class AudioProcessing:
             if self._added_file_counter < configuration.AUDIO_PROCESSING_MAX_FILES:
 
                 # checks if the audio file is already in the database
-                if not (file_id in self._audio_dictionary):
+                if file_id not in self._audio_dictionary:
 
                     audio_segment = self._get_audio_segment(file_path, file_type)
 

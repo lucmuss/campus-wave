@@ -1,7 +1,8 @@
-import os
-import configuration
-import json
 import collections
+import json
+import os
+
+from campus_wave import configuration
 
 
 class SearchTerm:
@@ -21,7 +22,7 @@ class SearchTerm:
         self._frequent_search_terms.clear()
 
         if os.path.isfile(configuration.SEARCH_TERM_STORAGE_FILE):
-            with open(configuration.SEARCH_TERM_STORAGE_FILE, 'r', encoding="utf8") as file:
+            with open(configuration.SEARCH_TERM_STORAGE_FILE, encoding="utf8") as file:
                 temp_dict = {}
                 for one_line in file.readlines():
                     word, counter = json.loads(one_line)
@@ -42,7 +43,7 @@ class SearchTerm:
         with open(configuration.SEARCH_TERM_STORAGE_FILE, 'w', encoding="utf8") as file:
             for item in self._frequent_search_terms.most_common():
                 json_content = json.dumps(item)
-                file.write("%s\n" % json_content)
+                file.write(f"{json_content}\n")
 
     def update_search_terms(self, token_list):
         """Updates the data set with the new entered keywords.

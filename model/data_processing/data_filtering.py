@@ -1,9 +1,10 @@
-import os
-import configuration
-import tinytag
 import hashlib
 import json
+import os
 import shutil
+
+from campus_wave import configuration
+import tinytag
 
 
 class DataFiltering:
@@ -39,7 +40,7 @@ class DataFiltering:
             for key, value in self._file_dictionary.items():
                 line_list = [key, value]
                 json_content = json.dumps(line_list)
-                file.write("%s\n" % json_content)
+                file.write(f"{json_content}\n")
 
     def load_database(self):
         """Loads the all relevant audio files from the hard disc.
@@ -48,7 +49,7 @@ class DataFiltering:
         """
 
         if os.path.isfile(configuration.DATA_FILTERING_STORAGE_FILE):
-            with open(configuration.DATA_FILTERING_STORAGE_FILE, 'r', encoding="utf8") as file:
+            with open(configuration.DATA_FILTERING_STORAGE_FILE, encoding="utf8") as file:
                 for one_line in file.readlines():
                     line_list = json.loads(one_line)
                     file_id = line_list[0]
@@ -80,9 +81,7 @@ class DataFiltering:
         _file_size = os.stat(file_path).st_size
 
         # the file size has to be in a predefined file size range
-        if configuration.DATA_FILTERING_MIN_FILE_SIZE <= _file_size <= configuration.DATA_FILTERING_MAX_FILE_SIZE:
-            return True
-        return False
+        return configuration.DATA_FILTERING_MIN_FILE_SIZE <= _file_size <= configuration.DATA_FILTERING_MAX_FILE_SIZE
 
     @staticmethod
     def _has_correct_file_name(file_name):
@@ -157,10 +156,7 @@ class DataFiltering:
                 return False
 
             # checks if the ID3 Tag title is empty
-            if self._current_tiny_tag.title:
-                return False
-
-            return True
+            return not self._current_tiny_tag.title
         else:
             self._is_current_file_correct = False
             return False
@@ -205,7 +201,7 @@ class DataFiltering:
         """
 
         # renames the audio file with the file id (hash value) for storing
-        new_file_path = '{}\\{}.{}'.format(configuration.DATA_FILTERING_STORAGE_DICTIONARY, file_id, file_type)
+        new_file_path = f'{configuration.DATA_FILTERING_STORAGE_DICTIONARY}\\{file_id}.{file_type}'
 
         if not os.path.isfile(new_file_path):
             # copies the file in the backup location
@@ -216,7 +212,7 @@ class DataFiltering:
 
         """
 
-        for dir_path, dir_names, files in os.walk(configuration.DATA_FILTERING_START_DICTIONARY):
+        for dir_path, _dir_names, files in os.walk(configuration.DATA_FILTERING_START_DICTIONARY):
 
             for file_name in files:
                 file_path = os.path.join(dir_path, file_name)
@@ -276,7 +272,7 @@ class DataFiltering:
             if self._added_file_counter < configuration.DATA_FILTERING_MAX_FILES:
 
                 # checks if the file is already in the database
-                if not (file_id in self._file_dictionary):
+                if file_id not in self._file_dictionary:
 
                     creation_date_timestamp = self._get_creation_date_timestamp(file_path)
                     file_type = self._get_file_type(file_path)

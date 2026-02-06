@@ -1,15 +1,15 @@
 import collections
-import configuration
 import ntpath
 
+from campus_wave import configuration
+from controller.html_formatter import HtmlFormatter
 from whoosh import index as whoosh_index
 from whoosh import qparser as whoosh_parser
 
-from controller.html_formatter import HtmlFormatter
+from model.data_interface.search_history import SearchHistory
 from model.data_interface.search_term import SearchTerm
 from model.data_processing.concept_mapping import ConceptMapping
 from model.data_processing.keyword_ranking import KeywordRanking
-from model.data_interface.search_history import SearchHistory
 
 
 class SearchResult:
@@ -29,7 +29,7 @@ class SearchResult:
     _result_formatter = None
 
     _relevant_db = None
-    _most_relevant_term_dict = list()
+    _most_relevant_term_dict = []
 
     def init_search(self):
         """Initializes all components of the retrieval system.
@@ -81,20 +81,20 @@ class SearchResult:
 
         # extends the search query with a file identifier
         if search_id:
-            search_string = "file_id:({})".format(search_id)
+            search_string = f"file_id:({search_id})"
             query_list.append(search_string)
 
         # extends the search query with a sequence of terms
         if search_terms:
             # recognized speech
-            search_string_text = "speech_text:({})".format(search_terms)
+            search_string_text = f"speech_text:({search_terms})"
 
             # extracted keywords
-            search_string_keywords = "important_words:({})".format(search_terms)
+            search_string_keywords = f"important_words:({search_terms})"
 
             # boolean search operator OR
             # the search term can occur in extracted keywords and in recognized speech
-            term_or_keyword = "({} OR {})".format(search_string_text, search_string_keywords)
+            term_or_keyword = f"({search_string_text} OR {search_string_keywords})"
             query_list.append(term_or_keyword)
 
         # extends the search query with a sequence of concepts
@@ -105,22 +105,22 @@ class SearchResult:
             if isinstance(concept_list, list):
                 search_concept = ' AND '.join(concept_list)
 
-            concept_search = "important_concepts:({})".format(search_concept)
+            concept_search = f"important_concepts:({search_concept})"
             query_list.append(concept_search)
 
         # extends the search query with a file location
         if search_path:
-            search_string = "file_location:\"{}\"".format(search_path)
+            search_string = f"file_location:\"{search_path}\""
             query_list.append(search_string)
 
         # extends the search query with a date of creation
         if date_to:
-            search_string = "file_creation_date:[{} TO {}]".format(date_from, date_to)
+            search_string = f"file_creation_date:[{date_from} TO {date_to}]"
             query_list.append(search_string)
 
         # extends the search query with a date of creation
         if duration_to:
-            search_string = "audio_file_duration:[{} TO {}]".format(duration_from, duration_to)
+            search_string = f"audio_file_duration:[{duration_from} TO {duration_to}]"
             query_list.append(search_string)
 
         # extends the search query the current search page
@@ -140,7 +140,7 @@ class SearchResult:
 
         """
 
-        term_list = list(term[1] for term in whoosh_query.iter_all_terms())
+        term_list = [term[1] for term in whoosh_query.iter_all_terms()]
 
         if term_list:
             self._frequent_db.update_search_terms(term_list)
@@ -227,7 +227,7 @@ class SearchResult:
                                                                                  self._most_relevant_term_dict)
 
         # recognized speech list
-        found_search_terms = set(term.decode('utf-8') for key, term in document.matched_terms() if key == "speech_text")
+        found_search_terms = {term.decode('utf-8') for key, term in document.matched_terms() if key == "speech_text"}
         speech_text_list = search_dict['speech_text'].split()
         recognized_speech_list = self._result_formatter.format_recognized_speech(speech_text_list, found_search_terms,
                                                                                  relevant_words_set)
@@ -268,9 +268,9 @@ class SearchResult:
 
         concept_counter = collections.Counter()
 
-        for rank_counter, file_location, audio_file_location, file_name, file_creation_date, file_duration, \
-            file_type, file_location_path, file_part_duration, important_words, found_concept_list, speech_text, \
-            audio_file_part, download_file_location, recognition_precision, file_id in result_list:
+        for _rank_counter, _file_location, _audio_file_location, _file_name, _file_creation_date, _file_duration, \
+            _file_type, _file_location_path, _file_part_duration, _important_words, found_concept_list, _speech_text, \
+            _audio_file_part, _download_file_location, _recognition_precision, _file_id in result_list:
             concept_counter.update(found_concept_list)
 
         # only the most common concepts are used for the concept summary

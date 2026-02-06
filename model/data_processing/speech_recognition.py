@@ -1,8 +1,9 @@
-import configuration
-import os
 import json
-import pocketsphinx
 import multiprocessing
+import os
+
+from campus_wave import configuration
+import pocketsphinx
 
 
 class SpeechRecognition:
@@ -34,7 +35,7 @@ class SpeechRecognition:
             for key, value in self._speech_dictionary.items():
                 line_list = [key, value]
                 json_content = json.dumps(line_list)
-                file.write("%s\n" % json_content)
+                file.write(f"{json_content}\n")
 
     def load_database(self):
         """Loads the recognized speech of all audio segments from the hard disc.
@@ -43,7 +44,7 @@ class SpeechRecognition:
         """
 
         if os.path.isfile(configuration.SPEECH_RECOGNITION_JSON_STORAGE_FILE):
-            with open(configuration.SPEECH_RECOGNITION_JSON_STORAGE_FILE, 'r', encoding="utf8") as file:
+            with open(configuration.SPEECH_RECOGNITION_JSON_STORAGE_FILE, encoding="utf8") as file:
                 for one_line in file.readlines():
                     line_list = json.loads(one_line)
                     file_id = line_list[0]
@@ -68,7 +69,7 @@ class SpeechRecognition:
                 return result_list
 
             # checks if the file is already in the database
-            if not (file_id in self._speech_dictionary):
+            if file_id not in self._speech_dictionary:
 
                 for part_counter, new_file_path, new_file_name, duration, full_audio_duration in file_list:
                     # converts the dictionary into a list of audio segments
@@ -99,8 +100,8 @@ class SpeechRecognition:
         if tuple_list_len <= partition_number:
             return [tuple_list]
 
-        return_list = list()
-        temp_list = list()
+        return_list = []
+        temp_list = []
 
         for index, tuple_elem in enumerate(tuple_list):
 
@@ -113,7 +114,7 @@ class SpeechRecognition:
                 # adds the partition (list of audio segments) to the final list.
                 return_list.append(temp_list)
 
-                temp_list = list()
+                temp_list = []
             else:
                 temp_list.append(tuple_elem)
 
@@ -144,14 +145,14 @@ class SpeechRecognition:
                 # maps the list of audio segments to a set of processes
                 result_file_part_list = process_pool.map(extract_speech_from_file_parallel, partition)
 
-                for file_id, part_counter, new_file_path, new_file_name, duration_milli_seconds, \
-                    full_audio_duration, token_list in result_file_part_list:
+                for file_id, part_counter, _new_file_path, _new_file_name, _duration_milli_seconds, \
+                    _full_audio_duration, token_list in result_file_part_list:
 
                     # stores the recognized speech into a dictionary (hash map)
                     if file_id in self._speech_dictionary:
                         self._speech_dictionary[file_id].append([part_counter, token_list])
                     else:
-                        self._speech_dictionary[file_id] = list()
+                        self._speech_dictionary[file_id] = []
                         self._speech_dictionary[file_id].append([part_counter, token_list])
 
                 # stores the recognized speech
@@ -255,7 +256,7 @@ def _clean_token_list(speech_token_list):
 
     token_list = []
 
-    for token, probability, score, confidence in speech_token_list:
+    for token, _probability, _score, _confidence in speech_token_list:
 
         token = token.lower()
 

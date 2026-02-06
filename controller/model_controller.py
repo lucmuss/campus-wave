@@ -1,14 +1,13 @@
-import configuration
-
+from campus_wave import configuration
+from model.data_interface.search_history import SearchHistory
+from model.data_interface.search_result import SearchResult
+from model.data_interface.search_term import SearchTerm
 from model.data_processing.audio_processing import AudioProcessing
+from model.data_processing.concept_mapping import ConceptMapping
 from model.data_processing.data_filtering import DataFiltering
 from model.data_processing.data_indexing import DataIndexing
 from model.data_processing.information_extraction import InformationExtraction
 from model.data_processing.keyword_ranking import KeywordRanking
-from model.data_interface.search_history import SearchHistory
-from model.data_interface.search_term import SearchTerm
-from model.data_interface.search_result import SearchResult
-from model.data_processing.concept_mapping import ConceptMapping
 from model.data_processing.similarity_computation import SimilarityComputation
 from model.data_processing.speech_recognition import SpeechRecognition
 
@@ -27,7 +26,6 @@ def re_init_global_concept_mapping():
 
     global global_concept_mapping
     del global_concept_mapping
-    global_concept_mapping = None
 
     get_global_concept_mapping()
 

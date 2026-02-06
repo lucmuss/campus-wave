@@ -1,8 +1,8 @@
 import json
 import os
 import time
-import configuration
 
+from campus_wave import configuration
 from controller import html_formatter
 
 
@@ -23,7 +23,7 @@ class SearchHistory:
         self._search_history = []
 
         if os.path.isfile(configuration.SEARCH_HISTORY_STORAGE_FILE):
-            with open(configuration.SEARCH_HISTORY_STORAGE_FILE, 'r', encoding="utf8") as file:
+            with open(configuration.SEARCH_HISTORY_STORAGE_FILE, encoding="utf8") as file:
                 for one_line in file.readlines():
                     line_element = json.loads(one_line)
                     self._search_history.append(line_element)
@@ -42,7 +42,7 @@ class SearchHistory:
         with open(configuration.SEARCH_HISTORY_STORAGE_FILE, 'w', encoding="utf8") as file:
             for item in self._search_history:
                 json_content = json.dumps(item)
-                file.write("%s\n" % json_content)
+                file.write(f"{json_content}\n")
 
     def update_search_terms(self, token_list, user_id):
         """Updates the data set with new entered keywords.
@@ -63,7 +63,7 @@ class SearchHistory:
         # sorts the entered keywords by their timestamp
         sorted_history_list = sorted(self._search_history, key=lambda list_element: list_element[0], reverse=True)
 
-        for timestamp, user_id, token_list in sorted_history_list:
+        for timestamp, _user_id, token_list in sorted_history_list:
             formatted_date = formatter.timestamp_to_date(timestamp)
             result_list.append([formatted_date, token_list])
 

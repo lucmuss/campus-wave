@@ -1,9 +1,9 @@
-import os
-import json
 import collections
-import configuration
+import json
 import math
+import os
 
+from campus_wave import configuration
 from controller.html_formatter import HtmlFormatter
 
 
@@ -15,12 +15,12 @@ class KeywordRanking:
     _temp_global_unigram_term_frequency = collections.Counter()
     _temp_global_bigram_term_frequency = collections.Counter()
 
-    _temp_document_terms_len = dict()
-    _temp_term_frequency_document = dict()
+    _temp_document_terms_len = {}
+    _temp_term_frequency_document = {}
 
-    _most_relevant_term_cluster = list()
-    _most_relevant_unigram_terms = list()
-    _most_relevant_bigram_terms = list()
+    _most_relevant_term_cluster = []
+    _most_relevant_unigram_terms = []
+    _most_relevant_bigram_terms = []
 
     _html_formatter = HtmlFormatter()
 
@@ -32,22 +32,19 @@ class KeywordRanking:
         self._temp_global_unigram_term_frequency.clear()
         self._temp_global_bigram_term_frequency.clear()
 
-        self._temp_document_terms_len = dict()
-        self._temp_term_frequency_document = dict()
+        self._temp_document_terms_len = {}
+        self._temp_term_frequency_document = {}
 
-        self._most_relevant_term_cluster = list()
-        self._most_relevant_unigram_terms = list()
-        self._most_relevant_bigram_terms = list()
+        self._most_relevant_term_cluster = []
+        self._most_relevant_unigram_terms = []
+        self._most_relevant_bigram_terms = []
 
     def _is_already_loaded(self):
         """Checks if the data set is already loaded.
 
         """
 
-        if len(self._most_relevant_unigram_terms) > 0:
-            return True
-        else:
-            return False
+        return len(self._most_relevant_unigram_terms) > 0
 
     def load_database(self):
         """Loads the all ordered keywords from the hard disc.
@@ -62,7 +59,7 @@ class KeywordRanking:
 
         # keywords
         if os.path.isfile(configuration.KEYWORD_RANKING_WEIGHT_STORAGE_FILE):
-            with open(configuration.KEYWORD_RANKING_WEIGHT_STORAGE_FILE, 'r', encoding="utf8") as file:
+            with open(configuration.KEYWORD_RANKING_WEIGHT_STORAGE_FILE, encoding="utf8") as file:
                 for one_line in file.readlines():
                     term, term_frequency, term_weight, term_score, term_cluster, term_concepts = json.loads(one_line)
                     term_triple = (term, term_frequency, term_weight, term_score, term_cluster, term_concepts)
@@ -72,7 +69,7 @@ class KeywordRanking:
 
         # bigrams
         if os.path.isfile(configuration.KEYWORD_RANKING_BIGRAM_TERM_STORAGE_FILE):
-            with open(configuration.KEYWORD_RANKING_BIGRAM_TERM_STORAGE_FILE, 'r', encoding="utf8") as file:
+            with open(configuration.KEYWORD_RANKING_BIGRAM_TERM_STORAGE_FILE, encoding="utf8") as file:
                 for one_line in file.readlines():
                     bigram, bigram_frequency, bigram_concepts = json.loads(one_line)
                     term_triple = (bigram, bigram_frequency, bigram_concepts)
@@ -95,7 +92,7 @@ class KeywordRanking:
                 term_concepts in self._most_relevant_unigram_terms:
                 line_list = [term, term_frequency, term_weight, term_score, term_cluster, term_concepts]
                 json_content = json.dumps(line_list)
-                file.write("%s\n" % json_content)
+                file.write(f"{json_content}\n")
 
         # bigrams
         if not os.path.isfile(configuration.KEYWORD_RANKING_BIGRAM_TERM_STORAGE_FILE):
@@ -105,7 +102,7 @@ class KeywordRanking:
             for bigram, bigram_frequency, bigram_concepts in self._most_relevant_bigram_terms:
                 line_list = [bigram, bigram_frequency, bigram_concepts]
                 json_content = json.dumps(line_list)
-                file.write("%s\n" % json_content)
+                file.write(f"{json_content}\n")
 
     def update_relevant_unigram_terms(self, token_list, file_part, file_id):
         """Adds new words for the keyword ranking calculation.
@@ -133,7 +130,7 @@ class KeywordRanking:
             if term in self._temp_term_frequency_document:
                 self._temp_term_frequency_document[term].append((global_segment_id, term_frequency))
             else:
-                self._temp_term_frequency_document[term] = list()
+                self._temp_term_frequency_document[term] = []
                 self._temp_term_frequency_document[term].append((global_segment_id, term_frequency))
 
         # adds the words to a global frequency distribution
@@ -160,9 +157,9 @@ class KeywordRanking:
         sorted_by_cluster = sorted(reduced_most_relevant_terms, key=lambda list_element: list_element[4],
                                    reverse=True)
 
-        cluster_list = list()
+        cluster_list = []
         old_cluster = -2
-        temp_list = list()
+        temp_list = []
         len_list = len(sorted_by_cluster)
 
         for index, term_tuple in enumerate(sorted_by_cluster):
@@ -181,7 +178,7 @@ class KeywordRanking:
 
                 old_cluster = term_cluster
 
-                temp_list = list()
+                temp_list = []
                 temp_list.append((term, term_frequency, term_weight, term_score, term_cluster, term_concepts))
             else:
                 temp_list.append((term, term_frequency, term_weight, term_score, term_cluster, term_concepts))
@@ -209,7 +206,7 @@ class KeywordRanking:
         min_frequency = 1
         max_frequency = max(count for term, count in most_common_list)
         term_cluster = -1
-        term_concept_list = list()
+        term_concept_list = []
 
         frequency_dict = dict(self._temp_global_unigram_term_frequency)
 
@@ -318,7 +315,7 @@ class KeywordRanking:
 
         """
 
-        return_dict = dict()
+        return_dict = {}
 
         for term, term_frequency, term_weight, term_score, term_cluster, \
             term_concepts in self._most_relevant_unigram_terms:

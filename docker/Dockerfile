@@ -2,6 +2,8 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
+ENV UV_PROJECT_ENVIRONMENT=.venv
+
 # Install uv
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
 
@@ -9,7 +11,7 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
 COPY . .
 
 # Install dependencies
-RUN uv sync --frozen --no-install-project
+RUN uv venv && uv sync --frozen
 
 # Make entrypoint executable
 RUN chmod +x docker/entrypoint.sh

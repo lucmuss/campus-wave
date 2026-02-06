@@ -1,18 +1,19 @@
 import multiprocessing
 import os
-import nltk
+from pathlib import Path
 
-from whoosh.fields import Schema, TEXT, KEYWORD, ID, NUMERIC
-from whoosh.analysis import RegexTokenizer, LowercaseFilter
+import nltk
+from whoosh.analysis import LowercaseFilter, RegexTokenizer
+from whoosh.fields import ID, KEYWORD, NUMERIC, TEXT, Schema
 
 # Defines the main location of the application
-GLOBAL_WORKING_PATH = os.path.dirname(__file__)
+GLOBAL_WORKING_PATH = str(Path(__file__).resolve().parents[1])
 
 # Defines the maximum number of audio files in all steps of the data processing
 GLOBAL_MAX_FILES = 1000000
 
 # Defines the secret key of the web server flask for the session encryption
-FLASK_SECRET_KEY = '\xde\x80\xb7\xa9\xb27\x16\xe4\x83\x0ch\xde\xb87n\x01\xa7j\x86/\xf7{#\xb5'
+FLASK_SECRET_KEY = os.getenv('FLASK_SECRET_KEY', 'replace_me')
 
 # Defines the maximum number of audio files in the indexing phase of the data processing
 DATA_INDEXING_MAX_FILES = GLOBAL_MAX_FILES
@@ -54,12 +55,24 @@ INFORMATION_EXTRACTION_STORAGE_FILE = GLOBAL_WORKING_PATH + r"\server\static\mod
 # Defines the maximum number of audio file of the information extraction phase
 INFORMATION_EXTRACTION_MAX_FILES = GLOBAL_MAX_FILES
 
+def _load_german_stop_words():
+    """Load German stop words and fall back to an empty set if unavailable."""
+
+    try:
+        return set(nltk.corpus.stopwords.words('german'))
+    except LookupError:
+        try:
+            nltk.download('stopwords', quiet=True)
+            return set(nltk.corpus.stopwords.words('german'))
+        except LookupError:
+            return set()
+
+
 # Defines a list of german stop words
-INFORMATION_EXTRACTION_GERMAN_STOP_WORD_LIST = set(nltk.corpus.stopwords.words('german'))
+INFORMATION_EXTRACTION_GERMAN_STOP_WORD_LIST = _load_german_stop_words()
 
 # Defines a list of german adjectives
-INFORMATION_EXTRACTION_GERMAN_MORE_STOP_WORDS = set(list(
-    ['eigenes', 'sofort', 'beste', 'ehrlich', 'absolut', 'b', 'freien', 'möchten', 'alt', 'eins', 'tun', 'zurück', 'a',
+INFORMATION_EXTRACTION_GERMAN_MORE_STOP_WORDS = {'eigenes', 'sofort', 'beste', 'ehrlich', 'absolut', 'b', 'freien', 'möchten', 'alt', 'eins', 'tun', 'zurück', 'a',
      'echte', 'falls', 'herzlich', 'i', 'neun', 'aktuelle', 'inneren', 'gesagt', 'weitere', 'darauf', 'viel', 'froh',
      'n', 'älteren', 'leichte', 'laut', 'interessante', 'lang', 'teil', 'größte', 'besonderes', 'vielen', 'drei',
      'lustig', 'wirklich', 'erster',
@@ -102,7 +115,7 @@ INFORMATION_EXTRACTION_GERMAN_MORE_STOP_WORDS = set(list(
      'wichtiger', 'wurde', 'hart', 'klaren',
      'immer', 'lange', 'notwendig', 'sinnvoll', 'ähnlich', 'täglich', 'schwierig', 'besseren', 'verhelfen', 'kleiner',
      'momentan',
-     'zufrieden', 'offensichtlich', 'bestimmten', 'enthaltenen', 'klare', 'finden', 'künftig', 'erfolgreich',
+     'zufrieden', 'offensichtlich', 'bestimmten', 'klare', 'finden', 'künftig', 'erfolgreich',
      'schnellen', 'stark',
      'bereichen', 'hoffentlich', 'kommenden', 'traurig', 'bestimmte', 'verantwortlich', 'leichter', 'heutigen', 'heute',
      'morgen', 'gestern', 'herzlichen', 'normalen',
@@ -110,11 +123,11 @@ INFORMATION_EXTRACTION_GERMAN_MORE_STOP_WORDS = set(list(
      'wenngleich', 'vergangenen', 'wichtiges', 'komplett', 'selbstverständlich', 'öffentliche', 'gutem', 'beginn'
         , 'allgemein', 'maximal', 'stellen', 'bevor', 'normal', 'schwarzen', 'brauchen', 'kurze', 'lässt', 'endlich',
      'natürlich',
-     'zusammenhang', 'offenen', 'betrifft', 'vernünftig', 'wunderbar', 'bessere', 'einverstanden', 'höheren', 'kalt',
+     'zusammenhang', 'offenen', 'betrifft', 'vernünftig', 'bessere', 'einverstanden', 'höheren', 'kalt',
      'warm', 'setzen',
      'glücklich', 'willkomenen', 'ähnlichen', 'genauer', 'vergessenen', 'innerhalb', 'nächstes', 'gemeinsamen',
      'dankbar', 'danke', 'roten',
-     'interessant', 'verstärkt', 'schwarze', 'zweitens', 'vollkommen', 'harte', 'zahlreiche', 'neueste', 'folgenden',
+     'interessant', 'verstärkt', 'schwarze', 'vollkommen', 'harte', 'zahlreiche', 'neueste', 'folgenden',
      'sowie', 'weitgehend',
      'wirklichen', 'aktuellen', 'anwesend', 'möglichen', 'sichtbar', 'allmählich', 'laufenden', 'gegenüber', 'täglichen'
         , 'vielfältigen', 'sehen', 'aufmerksam', 'halb', 'gemacht', 'ärmsten', 'vielfältig', 'verfügt', 'spontan',
@@ -125,7 +138,7 @@ INFORMATION_EXTRACTION_GERMAN_MORE_STOP_WORDS = set(list(
      'zweites'
         , 'begeistert', 'größten', 'wichtigste', 'korrekt', 'enthält', 'schlicht', 'große', 'ganzen', 'eigenen',
      'zweiten', 'gleichen',
-     'helfen', 'tatsächlich', 'gleichen', 'dringend', 'ganze', 'wichtig', 'komma', 'vehement', 'effektive',
+     'helfen', 'tatsächlich', 'dringend', 'ganze', 'wichtig', 'komma', 'vehement', 'effektive',
      'besser', 'effektiv', 'nächsten', 'gehört', 'unzureichend', 'nächste', 'ständig', 'gemeinsam', 'm', 'and',
      'offenbar',
      'wirft', 'vorhanden', 'enthalten', 'letztes', 'richtige', 'dritten', 'the', 'einzigen', 'betont', 'öffentlich',
@@ -146,7 +159,7 @@ INFORMATION_EXTRACTION_GERMAN_MORE_STOP_WORDS = set(list(
      'ebenfalls'
         , 'zukünftige', 'entfernten', 'denkt', 'wirkt', 'aktuelles', 'erwähnte', 'leichtfertig', 'aktiver',
      'stirbt', 'regelmäßig', 'flexibler', 'gehabt', 'liegenden', 'öffentlicher', 'verhindern',
-     'flexibler', 'gehabt', '	liegenden', 'verbindlich', 'verhindern', 'fortfahren', 'verehrten',
+     '	liegenden', 'verbindlich', 'fortfahren', 'verehrten',
      'angemessene', 'vereinbar', 'verstärkte', 'entwickelt', 'natürlichen', 'allein', 'dürfte', 'hoher',
      'geeigneten', 'bringt', 'vertraut', 'getan', 'gleichsam', 'angeblich', 'leichten', 'schlechtes', 'erwähnten',
      'einsetzen', 'hoffe', 'grob', 'sagte', 'unendlichen', 'pfeift', 'unklar', 'gemäß', 'altes', 'schnelle'
@@ -162,13 +175,12 @@ INFORMATION_EXTRACTION_GERMAN_MORE_STOP_WORDS = set(list(
         , 'anfänglich', 'eröffnen', 'g', 'ernste', 'erhebliche', 'erfolgt', 'vielleicht', 'ausreichend', 'festgelegt',
      'genannte', 'entschieden', 'engen', 'jeweiligen', 'fort', 'angemessen', 'betroffenen', 'heftige', 'künftige',
      'einzig', 'breite', 'wirksam', 'heftigen', 'außerhalb', 'zunehmend', 'positiven', 'ferner', 'einziger',
-     'hohe', 'v', 'höchste', 'erinnern', 't', 'lediglich', 'riesige', 'laufend', 'seltener', 'gegenwärtige',
+     'hohe', 'v', 'riesige', 'laufend', 'seltener', 'gegenwärtige',
      'unterschiede', 'strenge', 'kostenlos', 'wesentlicher', 'fehlenden', 'harmlos', 'westliche',
      'bedeutende', 'niedrig', 'zeitlich', 'gewaltige', 'entsetzt', 'gesellschaftliche', 'ermutigend',
      'gesellschaftlichen', 'nachhaltigen', 'erfolgreichen', 'auffallend', 'stärkere', 'fester', 'anwendbar', 'häufiger',
-     'gleichnamigen', 'fester', 'anwendbar', 'häufiger', 'gleichnamigen', 'absoluten', 'gleicher', 'übertrieben',
-     'seltener', 'kostenlos', 'wesentlicher', 'fehlenden', 'harmlos', 'westliche', 'niedrig', 'stärkere',
-     'gleichnamigen', 'gleicher', 'übertrieben', 'günstig', 'detaillierte', 'massive', 'vergeblich', 'dunklen',
+     'gleichnamigen', 'absoluten', 'gleicher', 'übertrieben',
+     'günstig', 'detaillierte', 'massive', 'vergeblich', 'dunklen',
      'korrekte', 'lädt', 'stehende', 'älteste', 'kalte', 'dicht', 'reichsten', 'hunderte', 'ernster',
      'fortwährend', 'knapp', 'besseres', 'harter', 'enorm', 'erweiterten', 'vollem', 'wachsende',
      'leer', 'interessiert', 'verletzten', 'echter', 'negative', 'billig', 'vermeintliche',
@@ -197,7 +209,7 @@ INFORMATION_EXTRACTION_GERMAN_MORE_STOP_WORDS = set(list(
      'praktisch', 'internen', 'intensive', 'fit', 'verantwortlichen', 'perspektive'
         , 'sorgfältig', 'notwendigen', 'unerlässlich', 'abhängig', 'gewisse', 'vereinten',
      'veröffentlichten', 'unerwähnt', 'wesentlich', 'unverändert', 'selten', 'effektiven',
-     'möglichkeit', 'perfekt', 'unendlich', 'einzige']))
+     'möglichkeit', 'perfekt', 'unendlich', 'einzige'}
 
 # Defines a list of german adjectives and stopwords
 INFORMATION_EXTRACTION_FINAL_GERMAN_STOP_WORD_LIST = INFORMATION_EXTRACTION_GERMAN_STOP_WORD_LIST | \
@@ -210,7 +222,7 @@ INFORMATION_EXTRACTION_RDF_STORAGE = GLOBAL_WORKING_PATH + r"\server\static\rdf"
 INFORMATION_EXTRACTION_NOUN_TAGS = ['NOUN', 'PROPN', 'ADJ', 'X']
 
 # Defines a list of non relevant file names in the file path
-INFORMATION_EXTRACTION_PATH_WRONG_KEYWORDS = set(value for value in ['mp', 'd', 'recin'])
+INFORMATION_EXTRACTION_PATH_WRONG_KEYWORDS = {'mp', 'd', 'recin'}
 
 # Defines a list of chars which are removed in the file path
 INFORMATION_EXTRACTION_PATH_REPLACE_DICT = {'\\': ' ', '.': ' ', '_': ' ', '-': ' ', '~': ' ', '': ' ', ':': ' ',
@@ -430,7 +442,7 @@ SIMILARITY_COMPUTATION_MAX_RESULTS = 12
 SIMILARITY_COMPUTATION_SIMILAR_STORAGE_FILE = GLOBAL_WORKING_PATH + r"\server\static\model\term_similarity_storage.json"
 
 # Defines password of the administration page
-ADMINISTRATION_PASSWORD = "studiocamera"
+ADMINISTRATION_PASSWORD = os.getenv('ADMINISTRATION_PASSWORD', 'replace_me')
 
 # Defines the allowed file extensions of the rdf files
 ADMINISTRATION_ALLOWED_FILE_TYPES = ['rdf', 'rdfs']

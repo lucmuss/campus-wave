@@ -1,0 +1,35 @@
+name: CI Lint
+
+on:
+  workflow_call:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    container:
+      image: python:3.12-slim
+    env:
+      UV_PROJECT_ENVIRONMENT: .venv
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Create environment and install dependencies
+        run: |
+          uv venv
+          uv sync --extra dev --frozen
+
+      - name: Ruff check
+        run: uv run ruff check campus_wave controller model server tests
+
+      - name: Ruff format check
+        run: uv run ruff format --check campus_wave controller model server tests
+
+      - name: Black check
+        run: uv run --with black black --check campus_wave controller model server tests
+
+      - name: Flake8 check
+        run: uv run --with flake8 flake8 . --max-line-length=100 --extend-ignore=E203,W503

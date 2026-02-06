@@ -1,6 +1,7 @@
-import configuration
-import os
 import json
+import os
+
+from campus_wave import configuration
 import numpy
 import sklearn
 
@@ -11,12 +12,12 @@ class SimilarityComputation:
     """
 
     _last_color_counter = 0
-    _temp_similarity_term_set = dict()
+    _temp_similarity_term_set = {}
 
-    _temp_clustering_data_set = list()
-    _temp_term_cluster_dict = dict()
+    _temp_clustering_data_set = []
+    _temp_term_cluster_dict = {}
 
-    _similarity_terms_dict = dict()
+    _similarity_terms_dict = {}
 
     def _clear_data(self):
         """Cleans the data set.
@@ -24,22 +25,19 @@ class SimilarityComputation:
         """
 
         self._last_color_counter = 0
-        self._temp_similarity_term_set = dict()
+        self._temp_similarity_term_set = {}
 
-        self._temp_clustering_data_set = list()
-        self._temp_term_cluster_dict = dict()
+        self._temp_clustering_data_set = []
+        self._temp_term_cluster_dict = {}
 
-        self._similarity_terms_dict = dict()
+        self._similarity_terms_dict = {}
 
     def _is_already_loaded(self):
         """Checks if the data set is already loaded.
 
         """
 
-        if len(self._similarity_terms_dict) > 0:
-            return True
-        else:
-            return False
+        return len(self._similarity_terms_dict) > 0
 
     def load_database(self):
         """Loads all words and the semantic related words from the hard disc.
@@ -53,7 +51,7 @@ class SimilarityComputation:
         self._clear_data()
 
         if os.path.isfile(configuration.SIMILARITY_COMPUTATION_SIMILAR_STORAGE_FILE):
-            with open(configuration.SIMILARITY_COMPUTATION_SIMILAR_STORAGE_FILE, 'r', encoding="utf8") as file:
+            with open(configuration.SIMILARITY_COMPUTATION_SIMILAR_STORAGE_FILE, encoding="utf8") as file:
                 for one_line in file.readlines():
                     term, term_list = json.loads(one_line)
                     self._similarity_terms_dict[term] = term_list
@@ -73,7 +71,7 @@ class SimilarityComputation:
             for key, value in self._similarity_terms_dict.items():
                 line_list = [key, value]
                 json_content = json.dumps(line_list)
-                file.write("%s\n" % json_content)
+                file.write(f"{json_content}\n")
 
     def update_visual_terms(self, token_list, file_part, file_id):
         """Adds new words for the similarity computation between words.
@@ -146,13 +144,13 @@ class SimilarityComputation:
 
          """
 
-        return_list = list()
+        return_list = []
         for score in term_clustering_element:
             if score == 1.0:
                 return_list.append(0)
             else:
                 # a higher semantic value means a lower distance
-                return_list.append((1.0 / (score + 0.0001)))
+                return_list.append(1.0 / (score + 0.0001))
 
         return return_list
 
@@ -161,15 +159,15 @@ class SimilarityComputation:
 
          """
 
-        term_clustering_data_set = list()
+        term_clustering_data_set = []
 
         if not self._temp_similarity_term_set:
             return True
 
         for important_term in most_relevant_terms:
 
-            similar_term_list = list()
-            term_clustering_element = list()
+            similar_term_list = []
+            term_clustering_element = []
 
             for second_term in most_relevant_terms:
                 # calculates the semantic relation between words
@@ -217,10 +215,10 @@ class SimilarityComputation:
 
                 # the rank value of each keyword is squared for a better visual representation
                 rank = (rank * rank) * 100
-                if (not (term == input_term)) and (rank > 0.0):
+                if (term != input_term) and (rank > 0.0):
                     index += 1
 
-                    result_tuple = (index, '{:.2f}'.format(rank), term, term, self._get_next_color_value())
+                    result_tuple = (index, f'{rank:.2f}', term, term, self._get_next_color_value())
                     result_list.append(result_tuple)
 
         return result_list
@@ -244,4 +242,4 @@ class SimilarityComputation:
         hsl_color_degree = (self._last_color_counter * int(degree_step_size)) + 1 * int(degree_step_size)
 
         self._last_color_counter += 1
-        return 'hsl({}, 60%, 50%)'.format(hsl_color_degree)
+        return f'hsl({hsl_color_degree}, 60%, 50%)'

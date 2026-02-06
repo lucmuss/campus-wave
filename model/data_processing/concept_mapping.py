@@ -1,5 +1,6 @@
 import os
-import configuration
+
+from campus_wave import configuration
 
 from model.data_processing.rdf_parser import RdfParser
 
@@ -9,11 +10,11 @@ class ConceptMapping:
 
     """
 
-    term_to_concept = dict()
-    concept_to_term = dict()
+    term_to_concept = {}
+    concept_to_term = {}
 
-    file_dict = dict()
-    file_list = list()
+    file_dict = {}
+    file_list = []
 
     rdf_parser = RdfParser()
 
@@ -143,7 +144,7 @@ class ConceptMapping:
 
         # checks if the RDF file already exists in the hard disc
         if os.path.isfile(file_path):
-            with open(file_path, 'r', encoding="utf8") as file:
+            with open(file_path, encoding="utf8") as file:
                 # reads the content of the RDF file
                 return_string = file.read()
 
@@ -163,7 +164,7 @@ class ConceptMapping:
             file_content = self._get_file_content(file_name)
 
             if concept_set:
-                return_list = list()
+                return_list = []
 
                 for concept in concept_set:
                     # extracts the corresponding terms from the concepts
@@ -172,9 +173,9 @@ class ConceptMapping:
 
                 return file_content, return_list
             else:
-                return file_content, list()
+                return file_content, []
         else:
-            return None, list()
+            return None, []
 
     def _add_concept_to_term(self, term, concept, file_name):
         """Extends the definition of a concept with the corresponding keyword.
@@ -265,13 +266,13 @@ class ConceptMapping:
 
         """
 
-        self.term_to_concept = dict()
-        self.concept_to_term = dict()
+        self.term_to_concept = {}
+        self.concept_to_term = {}
 
-        self.file_dict = dict()
-        self.file_list = list()
+        self.file_dict = {}
+        self.file_list = []
 
-        for dir_path, dir_names, files in os.walk(configuration.INFORMATION_EXTRACTION_RDF_STORAGE):
+        for dir_path, _dir_names, files in os.walk(configuration.INFORMATION_EXTRACTION_RDF_STORAGE):
 
             for file_name in files:
 
@@ -290,7 +291,7 @@ class ConceptMapping:
                     rdf_data_len = len(rdf_data)
                     rdf_deep = 0
 
-                    tree_path = list()
+                    tree_path = []
 
                     self._add_empty_rdf_file(file_name)
 

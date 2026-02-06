@@ -1,8 +1,9 @@
-import flask
+import contextlib
 import datetime
-import configuration
 import uuid
 
+from campus_wave import configuration
+import flask
 from controller import model_controller
 
 # starts a new web server
@@ -503,43 +504,31 @@ def filter_search_parameter(search_term, date_from, date_to, duration_from, dura
 
     # convert the audio duration to milliseconds
     if duration_from and (duration_from != configuration.SEARCH_RESULT_DEFAULT_DURATION_FROM):
-        try:
+        with contextlib.suppress(BaseException):
             duration_from_default = int(duration_from) * 1000
-        except:
-            pass
 
     # convert the audio duration to milliseconds
     if duration_to and (duration_to != configuration.SEARCH_RESULT_DEFAULT_DURATION_TO):
-        try:
+        with contextlib.suppress(BaseException):
             duration_to_default = int(duration_to) * 1000
-        except:
-            pass
 
     # converts the creation date to a timestamp
     if date_to and (date_to != configuration.SEARCH_RESULT_DEFAULT_TIMESTAMP_TO):
-        try:
+        with contextlib.suppress(BaseException):
             date_to_default = int(datetime.datetime.strptime(date_to, "%d.%m.%Y").timestamp())
-        except:
-            pass
 
     # converts the creation date to a timestamp
     if date_from and (date_from != configuration.SEARCH_RESULT_DEFAULT_TIMESTAMP_FROM):
-        try:
+        with contextlib.suppress(BaseException):
             date_from_default = int(datetime.datetime.strptime(date_from, "%d.%m.%Y").timestamp())
-        except:
-            pass
 
     if page_number:
-        try:
+        with contextlib.suppress(BaseException):
             page_number_default = int(page_number)
-        except:
-            pass
 
     if result_number:
-        try:
+        with contextlib.suppress(BaseException):
             result_number_default = int(result_number)
-        except:
-            pass
 
     if search_path:
         search_path_default = search_path

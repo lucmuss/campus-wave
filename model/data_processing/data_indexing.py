@@ -1,6 +1,6 @@
-import configuration
 import os
 
+from campus_wave import configuration
 from whoosh import index as whoosh_index
 
 
@@ -39,7 +39,7 @@ class DataIndexing:
 
                 audio_part_list = audio_database[file_id]
 
-                for file_part, lemma_token_list, important_words, pos_token_list, concept_list in file_info:
+                for file_part, lemma_token_list, important_words, _pos_token_list, concept_list in file_info:
                     counter, new_audio_file_path, new_audio_file_name, duration_milli_seconds, full_audio_duration = \
                         audio_part_list[file_part]
 

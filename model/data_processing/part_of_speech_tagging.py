@@ -1,5 +1,5 @@
+from campus_wave import configuration
 import spacy
-import configuration
 
 
 class PartOfSpeechTagging:
@@ -42,7 +42,7 @@ class PartOfSpeechTagging:
 
         return_list = []
 
-        for text, lemma, lemma_, tag, tag_, pos, pos_ in tag_list:
+        for _text, _lemma, lemma_, _tag, tag_, _pos, pos_ in tag_list:
             return_list.append((lemma_, pos_))
 
         return return_list
@@ -117,5 +117,4 @@ class PartOfSpeechTagging:
         """
 
         return (pos_tag in configuration.INFORMATION_EXTRACTION_NOUN_TAGS) and (
-            term != configuration.SPEECH_RECOGNITION_UNKNOWN_SPEECH_TERM) and not (
-            term in configuration.INFORMATION_EXTRACTION_FINAL_GERMAN_STOP_WORD_LIST)
+            term != configuration.SPEECH_RECOGNITION_UNKNOWN_SPEECH_TERM) and term not in configuration.INFORMATION_EXTRACTION_FINAL_GERMAN_STOP_WORD_LIST
